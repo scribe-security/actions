@@ -27,7 +27,7 @@ runs:
     - ${{ inputs.command }}
     - ${{ inputs.type }}:${{ inputs.target }}
     - --verbose=${{ inputs.verbose }}
-    - ${{ inputs.config && '--config=${{ inputs.config }}' }}
+    - ${{ inputs.config && '--config='inputs.config }} }}
 
 branding:
   icon: shield
