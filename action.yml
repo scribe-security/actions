@@ -12,13 +12,17 @@ inputs:
     description: 'target'
     required: true
   verbose:
-    description: 'verbose count <0 Err -> 2 Debug>'
+    description: 'increase verbosity (-v = info, -vv = debug)'
     default: 0
   config:
-    description: 'config path'
-  name:
-    description: 'name of configuration'
-    default: bomber
+    description: 'application config file'
+  output:
+    description: 'report output formatter, options=[cyclonedxjson cyclonedxxml] (default "cyclonedxjson")'
+    default: cyclonedxjson
+  output-directory:
+    description: 'report output directory'
+    default: ./bomber_reports
+
 
 runs:
   using: docker
@@ -27,7 +31,9 @@ runs:
     - ${{ inputs.command }}
     - ${{ inputs.type }}:${{ inputs.target }}
     - --verbose=${{ inputs.verbose }}
-    - ${{ inputs.config && '--config=' }} }}${{ inputs.config }}
+    - ${{ inputs.config && '--config=' }}${{ inputs.config }}
+    - --output=${{ inputs.output }}
+    - --output-directory=${{ inputs.output-directory }}
 
 branding:
   icon: shield
