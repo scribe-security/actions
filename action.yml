@@ -5,6 +5,9 @@ inputs:
   config:
     description: 'config path'
     default: .cocosign.yaml
+  name:
+    description: 'name of configuration'
+    default: bomber
   command:
     description: 'command'
     default: bomb-syft
@@ -15,11 +18,9 @@ inputs:
     description: 'target'
     required: true
   verbose:
-    description: 'verbose cound'
-    default: 0 #0 Err, 1 Info, 2 Debug
-  name:
-    description: 'name of configuration'
-    default: bomber
+    description: 'verbose count <0 Err -> 2 Debug>'
+    default: 0
+
 
 runs:
   using: docker
@@ -27,7 +28,7 @@ runs:
   args:
     - ${{ inputs.command }}
     - ${{ inputs.type }}:${{ inputs.target }}
-    - --verbose=${{ inputs.type }}
+    - --verbose=${{ inputs.verbose }}
 branding:
   icon: shield
   color: green
