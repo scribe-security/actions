@@ -15,18 +15,19 @@ inputs:
     description: 'target'
     required: true
   verbose:
-    description: 'verbose output'
-    default: false
+    description: 'verbose cound'
+    default: 0 #0 Err, 1 Info, 2 Debug
   name:
     description: 'name of configuration'
     default: bomber
+
 runs:
   using: docker
   image: docker://scribesecuriy.jfrog.io/scribe-docker-public-local/bomber:latest 
   args:
     - ${{ inputs.command }}
     - ${{ inputs.type }}:${{ inputs.target }}
-    - -vv
+    - --verbose=${{ inputs.type }}
 branding:
   icon: shield
   color: green
