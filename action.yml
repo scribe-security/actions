@@ -1,0 +1,33 @@
+name: 'bomber'
+description: 'Validate commit slsa attestations'
+author: mikey strauss
+inputs:
+  config:
+    description: 'config path'
+    default: .cocosign.yaml
+  command:
+    description: 'command'
+    default: bomb-syft
+  type:
+    description: 'target type'
+    default: oci-registry
+  target:
+    description: 'target'
+    required: true
+    default: target
+  verbose:
+    description: 'verbose output'
+    default: false
+  name:
+    description: 'name of configuration'
+    default: bomber
+runs:
+  using: docker
+  image: docker://scribesecuriy.jfrog.io/scribe-docker-public-local/bomber:latest 
+  args:
+    - ${{ inputs.command }}
+    - ${{ inputs.type }}:${{ inputs.target }}
+    - -vv
+branding:
+  icon: shield
+  color: green
