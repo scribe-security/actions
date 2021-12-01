@@ -2,12 +2,6 @@ name: 'bomber'
 description: 'Generates a Software Bill Of Materials (SBOM) from container images and filesystems'
 author: mikey strauss
 inputs:
-  config:
-    description: 'config path'
-    default: .cocosign.yaml
-  name:
-    description: 'name of configuration'
-    default: bomber
   command:
     description: 'command'
     default: bomb-syft
@@ -20,7 +14,11 @@ inputs:
   verbose:
     description: 'verbose count <0 Err -> 2 Debug>'
     default: 0
-
+  config:
+    description: 'config path'
+  name:
+    description: 'name of configuration'
+    default: bomber
 
 runs:
   using: docker
@@ -29,6 +27,8 @@ runs:
     - ${{ inputs.command }}
     - ${{ inputs.type }}:${{ inputs.target }}
     - --verbose=${{ inputs.verbose }}
+    - ${{ inputs.config && '--config=${{ inputs.config }}' }}
+
 branding:
   icon: shield
   color: green
