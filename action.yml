@@ -2,9 +2,9 @@ name: 'bomber'
 description: 'Generates a Software Bill Of Materials (SBOM) from container images and filesystems'
 author: mikey strauss
 inputs:
-  command:
-    description: 'command <bomb-syft>'
-    default: bomb-syft
+  # command:
+  #   description: 'command <bomb-syft>'
+  #   default: bomb-syft
   type:
     description: 'target type'
     default: oci-registry
@@ -34,7 +34,7 @@ runs:
   using: docker
   image: docker://scribesecuriy.jfrog.io/scribe-docker-public-local/bomber:latest 
   args:
-    - ${{ inputs.command }}
+    - bomb-syft
     - ${{ inputs.type }}:${{ inputs.target }}
     - --verbose=${{ inputs.verbose }}
     - ${{ inputs.config && '--config=' }}${{ inputs.config }}
@@ -43,8 +43,7 @@ runs:
     - --attest=${{ inputs.attest }}
     - ${{ inputs.attestconfig && '--attest.config=' }}${{ inputs.attestconfig }}
     - ${{ inputs.attestname && '--attest.name=' }}${{ inputs.attestname }}
-
-
+    - -e GITHUB_RUN_ID -e GITHUB_RUN_NUMBER -e GITHUB_WORKFLOW -e GITHUB_ACTOR -e GITHUB_EVENT_NAME -e GITHUB_JOB -e GITHUB_WORKSPACE -e GITHUB_REPOSITORY_OWNER -e GITHUB_REPOSITORY -e GITHUB_SHA -e GITHUB_REF -e GITHUB_SERVER_URL
 branding:
   icon: shield
   color: green
