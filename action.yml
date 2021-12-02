@@ -22,7 +22,12 @@ inputs:
   output-directory:
     description: 'report output directory'
     default: ./bomber_reports
-
+  attest:
+    description: 'attest image bom'
+  attestconfig:
+    description: 'cocosign configuration path'
+  attestname:
+    description: 'cocosign configuration name'
 
 runs:
   using: docker
@@ -34,6 +39,10 @@ runs:
     - ${{ inputs.config && '--config=' }}${{ inputs.config }}
     - --output=${{ inputs.output }}
     - --output-directory=${{ inputs.output-directory }}
+    - ${{ inputs.attest && '--attest=' }}
+    - ${{ inputs.attestconfig && '--attest.config=' }}${{ inputs.attestconfig }}
+    - ${{ inputs.attestname && '--attest.name=' }}${{ inputs.attestname }}
+
 
 branding:
   icon: shield
