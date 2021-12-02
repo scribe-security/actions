@@ -3,7 +3,7 @@ description: 'Generates a Software Bill Of Materials (SBOM) from container image
 author: mikey strauss
 inputs:
   command:
-    description: 'command'
+    description: 'command <bomb-syft>'
     default: bomb-syft
   type:
     description: 'target type'
@@ -24,6 +24,7 @@ inputs:
     default: ./bomber_reports
   attest:
     description: 'attest image bom'
+    default: false
   attestconfig:
     description: 'cocosign configuration path'
   attestname:
@@ -40,6 +41,7 @@ runs:
     - --output=${{ inputs.output }}
     - --output-directory=${{ inputs.output-directory }}
     - ${{ inputs.attest && '--attest=' }}
+     --attest=${{ inputs.attest }}
     - ${{ inputs.attestconfig && '--attest.config=' }}${{ inputs.attestconfig }}
     - ${{ inputs.attestname && '--attest.name=' }}${{ inputs.attestname }}
 
