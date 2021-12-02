@@ -43,7 +43,18 @@ runs:
     - --attest=${{ inputs.attest }}
     - ${{ inputs.attestconfig && '--attest.config=' }}${{ inputs.attestconfig }}
     - ${{ inputs.attestname && '--attest.name=' }}${{ inputs.attestname }}
-    - -e GITHUB_RUN_ID -e GITHUB_RUN_NUMBER -e GITHUB_WORKFLOW -e GITHUB_ACTOR -e GITHUB_EVENT_NAME -e GITHUB_JOB -e GITHUB_WORKSPACE -e GITHUB_REPOSITORY_OWNER -e GITHUB_REPOSITORY -e GITHUB_SHA -e GITHUB_REF -e GITHUB_SERVER_URL
+    - -e GITHUB_RUN_ID 
+    - -e GITHUB_RUN_NUMBER 
+    - -e GITHUB_WORKFLOW 
+    - -e GITHUB_ACTOR 
+    - -e GITHUB_EVENT_NAME 
+    - -e GITHUB_JOB 
+    - -e GITHUB_WORKSPACE 
+    - -e GITHUB_REPOSITORY_OWNER 
+    - -e GITHUB_REPOSITORY 
+    - -e GITHUB_SHA 
+    - -e GITHUB_REF 
+    - -e GITHUB_SERVER_URL
 branding:
   icon: shield
   color: green
