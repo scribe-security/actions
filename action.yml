@@ -17,18 +17,22 @@ inputs:
   config:
     description: 'application config file'
   output:
-    description: 'report output formatter, options=[cyclonedxjson cyclonedxxml] (default "cyclonedxjson")'
+    description: 'report output formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]  (default "cyclonedxjson")'
     default: cyclonedxjson
   output-directory:
     description: 'report output directory'
     default: ./bomber_reports
-  attest:
-    description: 'attest image bom'
+  output-sbom:
+    description: 'output sbom to file'
+  force:
+    description: 'force overwrite cache'
     default: false
-  attestconfig:
+  attest-config:
     description: 'cocosign configuration path'
-  attestname:
+  attest-name:
     description: 'cocosign configuration name'
+  filter-regex:
+    description: 'filter out files by regex (default [.*\.pyc])'
 
 runs:
   using: docker
@@ -40,21 +44,13 @@ runs:
     - ${{ inputs.config && '--config=' }}${{ inputs.config }}
     - --output=${{ inputs.output }}
     - --output-directory=${{ inputs.output-directory }}
-    - --attest=${{ inputs.attest }}
-    - ${{ inputs.attestconfig && '--attest.config=' }}${{ inputs.attestconfig }}
-    - ${{ inputs.attestname && '--attest.name=' }}${{ inputs.attestname }}
-    - -eGITHUB_RUN_ID 
-    - -eGITHUB_RUN_NUMBER 
-    - -eGITHUB_WORKFLOW 
-    - -eGITHUB_ACTOR 
-    - -eGITHUB_EVENT_NAME 
-    - -eGITHUB_JOB 
-    - -eGITHUB_WORKSPACE 
-    - -eGITHUB_REPOSITORY_OWNER 
-    - -eGITHUB_REPOSITORY 
-    - -eGITHUB_SHA 
-    - -eGITHUB_REF 
-    - -eGITHUB_SERVER_URL
+    - --force=${{ inputs.force }}
+    - --context-type=github
+    - ${{ inputs.attest-config && '--attest.config=' }}${{ inputs.attest-config }}
+    - ${{ inputs.attest-name && '--attest.name=' }}${{ inputs.attest-name }}
+    - ${{ inputs.filter-regex && '--filter-regex=' }}${{ inputs.filter-regex }}
+    - ${{ inputs. output-sbom && '--output-sbom=' }}${{ inputs.output-sbom }}
+
 branding:
   icon: shield
   color: green
