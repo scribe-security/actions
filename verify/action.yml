@@ -1,0 +1,56 @@
+name: 'Bomber: verify'
+description: 'Generates a Software Bill Of Materials (SBOM) from container images and filesystems'
+author: Mikey Strauss
+inputs:
+  # command:
+  #   description: 'command <bomb-syft>'
+  #   default: bomb-syft
+  type:
+    description: 'target type'
+    default: oci-registry
+  target:
+    description: 'target'
+    required: true
+  verbose:
+    description: 'increase verbosity (-v = info, -vv = debug)'
+    default: 0
+  config:
+    description: 'application config file'
+  output:
+    description: 'report output formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]  (default "cyclonedxjson")'
+    default: cyclonedxjson
+  output-directory:
+    description: 'report output directory'
+    default: ./bomber_reports
+  output-sbom:
+    description: 'output sbom to file'
+  force:
+    description: 'force overwrite cache'
+    default: false
+  attest-config:
+    description: 'cocosign configuration path'
+  attest-name:
+    description: 'cocosign configuration name'
+  filter-regex:
+    description: 'filter out files by regex (default [.*\.pyc])'
+
+runs:
+  using: docker
+  image: docker://scribesecuriy.jfrog.io/scribe-docker-public-local/bomber:latest 
+  args:
+    - verify
+    - ${{ inputs.type }}:${{ inputs.target }}
+    - --verbose=${{ inputs.verbose }}
+    - ${{ inputs.config && '--config=' }}${{ inputs.config }}
+    - --output=${{ inputs.output }}
+    - --output-directory=${{ inputs.output-directory }}
+    - --force=${{ inputs.force }}
+    - --context-type=github
+    - ${{ inputs.attest-config && '--attest.config=' }}${{ inputs.attest-config }}
+    - ${{ inputs.attest-name && '--attest.name=' }}${{ inputs.attest-name }}
+    - ${{ inputs.filter-regex && '--filter-regex=' }}${{ inputs.filter-regex }}
+    - ${{ inputs. output-sbom && '--output-sbom=' }}${{ inputs.output-sbom }}
+
+branding:
+  icon: shield
+  color: green

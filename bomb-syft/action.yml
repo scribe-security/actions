@@ -1,6 +1,6 @@
-name: 'bomber'
+name: 'Bomber: bomb-syft'
 description: 'Generates a Software Bill Of Materials (SBOM) from container images and filesystems'
-author: mikey strauss
+author: Mikey Strauss
 inputs:
   # command:
   #   description: 'command <bomb-syft>'
