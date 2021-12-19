@@ -16,14 +16,16 @@ inputs:
     default: 0
   config:
     description: 'application config file'
-  output:
-    description: 'report output formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]  (default "cyclonedxjson")'
+  format:
+    description: 'sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]  (default "cyclonedxjson")'
     default: cyclonedxjson
   output-directory:
     description: 'report output directory'
     default: ./bomber_reports
   output-sbom:
     description: 'output sbom to file'
+  name:
+    description: 'sbom custom/project name'
   force:
     description: 'force overwrite cache'
     default: false
@@ -31,8 +33,6 @@ inputs:
     description: 'cocosign configuration path'
   attest-name:
     description: 'cocosign configuration name'
-  filter-regex:
-    description: 'filter out files by regex (default [.*\.pyc])'
 
 runs:
   using: docker
@@ -42,13 +42,13 @@ runs:
     - ${{ inputs.type }}:${{ inputs.target }}
     - --verbose=${{ inputs.verbose }}
     - ${{ inputs.config && '--config=' }}${{ inputs.config }}
-    - --output=${{ inputs.output }}
+    - --format=${{ inputs.format }}
+    - ${{ inputs.name && '--name=' }}${{ inputs.name }}
     - --output-directory=${{ inputs.output-directory }}
     - --force=${{ inputs.force }}
     - --context-type=github
     - ${{ inputs.attest-config && '--attest.config=' }}${{ inputs.attest-config }}
     - ${{ inputs.attest-name && '--attest.name=' }}${{ inputs.attest-name }}
-    - ${{ inputs.filter-regex && '--filter-regex=' }}${{ inputs.filter-regex }}
     - ${{ inputs. output-sbom && '--output-sbom=' }}${{ inputs.output-sbom }}
 
 branding:

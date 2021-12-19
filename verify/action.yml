@@ -1,5 +1,5 @@
 name: 'Bomber: verify'
-description: 'Generates a Software Bill Of Materials (SBOM) from container images and filesystems'
+description: 'Verify a Signed Software Bill Of Materials (SBOM) from container images and filesystems'
 author: Mikey Strauss
 inputs:
   # command:
@@ -16,17 +16,16 @@ inputs:
     default: 0
   config:
     description: 'application config file'
-  output:
-    description: 'report output formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]  (default "cyclonedxjson")'
-    default: cyclonedxjson
+  # format:
+  #   description: 'sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]  (default "cyclonedxjson")'
+  #   default: cyclonedxjson
   output-directory:
     description: 'report output directory'
     default: ./bomber_reports
   output-sbom:
     description: 'output sbom to file'
-  force:
-    description: 'force overwrite cache'
-    default: false
+  name:
+    description: 'bom custom/project name'
   attest-config:
     description: 'cocosign configuration path'
   attest-name:
@@ -42,9 +41,9 @@ runs:
     - ${{ inputs.type }}:${{ inputs.target }}
     - --verbose=${{ inputs.verbose }}
     - ${{ inputs.config && '--config=' }}${{ inputs.config }}
-    - --output=${{ inputs.output }}
+    # - --format=${{ inputs.format }}
+    - ${{ inputs.name && '--name=' }}${{ inputs.name }}
     - --output-directory=${{ inputs.output-directory }}
-    - --force=${{ inputs.force }}
     - --context-type=github
     - ${{ inputs.attest-config && '--attest.config=' }}${{ inputs.attest-config }}
     - ${{ inputs.attest-name && '--attest.name=' }}${{ inputs.attest-name }}
