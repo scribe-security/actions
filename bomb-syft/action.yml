@@ -7,7 +7,7 @@ inputs:
   #   default: bomb-syft
   type:
     description: 'target type'
-    default: oci-registry
+    default: registry
   target:
     description: 'target'
     required: true
