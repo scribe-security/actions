@@ -31,8 +31,8 @@ inputs:
   attest-name:
     description: 'Attestation config name (default "bomber")'
   attest-default:
-    description: 'Attestation default config, options=[sigstore x509]'
-    default: sigstore
+    description: 'Attestation default config, options=[sigstore sigstore-github x509]'
+    default: sigstore-github
 
 runs:
   using: docker
