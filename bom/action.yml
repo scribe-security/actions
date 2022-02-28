@@ -1,44 +1,44 @@
-name: 'Bomber: bomb-syft'
+name: 'Bomber: bom'
 description: 'Generates a Software Bill Of Materials (SBOM) from container images and filesystems'
 author: Mikey Strauss
 inputs:
-  # command:
-  #   description: 'command <bomb-syft>'
-  #   default: bomb-syft
   type:
-    description: 'target type'
+    description: 'Target source type options=[docker,docker-archive, oci-archive, dir, registry]'
     default: registry
   target:
-    description: 'target'
+    description: 'Target object name format=[<image:tag>, <dir_path>]'
     required: true
   verbose:
-    description: 'increase verbosity (-v = info, -vv = debug)'
+    description: 'Increase verbosity (-v = info, -vv = debug)'
     default: 0
   config:
-    description: 'application config file'
+    description: 'Application config file'
   format:
-    description: 'sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]  (default "cyclonedxjson")'
+    description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]'
     default: cyclonedxjson
   output-directory:
-    description: 'report output directory'
+    description: 'Report output directory'
     default: ./bomber_reports
-  output-sbom:
-    description: 'output sbom to file'
+  output-file:
+    description: 'Output result to file'
   name:
-    description: 'sbom custom/project name'
+    description: 'Custom/project name'
   force:
-    description: 'force overwrite cache'
+    description: 'Force overwrite cache'
     default: false
   attest-config:
-    description: 'cocosign configuration path'
+    description: 'Attestation config map'
   attest-name:
-    description: 'cocosign configuration name'
+    description: 'Attestation config name (default "bomber")'
+  attest-default:
+    description: 'Attestation default config, options=[sigstore x509]'
+    default: sigstore
 
 runs:
   using: docker
   image: docker://scribesecuriy.jfrog.io/scribe-docker-public-local/bomber:latest 
   args:
-    - bomb-syft
+    - bom
     - ${{ inputs.type }}:${{ inputs.target }}
     - --verbose=${{ inputs.verbose }}
     - ${{ inputs.config && '--config=' }}${{ inputs.config }}
@@ -49,7 +49,8 @@ runs:
     - --context-type=github
     - ${{ inputs.attest-config && '--attest.config=' }}${{ inputs.attest-config }}
     - ${{ inputs.attest-name && '--attest.name=' }}${{ inputs.attest-name }}
-    - ${{ inputs. output-sbom && '--output-sbom=' }}${{ inputs.output-sbom }}
+    - ${{ inputs.attest-default && '--attest.default=' }}${{ inputs.attest-default }}
+    - ${{ inputs.output-file && '--output-file=' }}${{ inputs.output-file }}
 
 branding:
   icon: shield
