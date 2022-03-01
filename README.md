@@ -1,17 +1,13 @@
+---
+title: Bomber
+author: mikey strauss - Scribe
+date: March 1, 2022
+geometry: margin=2cm
+---
+
 # GitHub Action scribe bom tool
 
-<!-- [![Test Status][test-img]][test]
-[![GitHub release](https://img.shields.io/github/release/anchore/scan-action.svg)](https://github.com/anchore/scan-action/releases/latest)
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/anchore/scan-action/blob/main/LICENSE)
-[![Slack Invite](https://img.shields.io/badge/Slack-Join-blue?logo=slack)](https://anchore.com/slack)
-
-:zap: _Find threats in files or containers at lightning speed_ :zap: -->
-
 Includes GitHub Actions using the [Bomber](https://github.com/scribe-security/bomber) cli tool. 
-
-Bom action: Allows users to generate SBOMs out of images directories and files.
-Output cyclonedx, attestation (Intoto).
-
 Attestation options are based on the [cocosign](https://github.com/scribe-security/cocosign) FM.
 FM allows a wide range of signing and verifing flows including KMS, and Sigstore flows.
 By default action will default to .
