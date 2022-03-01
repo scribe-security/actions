@@ -4,7 +4,7 @@ author: mikey strauss - Scribe
 date: March 1, 2022
 geometry: margin=2cm
 ---
-# GitHub Action scribe bom tool
+# 🚀 GitHub Action scribe bom tool
 
 Includes GitHub Actions using the [Bomber](https://github.com/scribe-security/bomber) cli tool. 
 Attestation options are based on the [cocosign](https://github.com/scribe-security/cocosign) FM.
