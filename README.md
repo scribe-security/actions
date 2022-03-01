@@ -6,7 +6,7 @@ geometry: margin=2cm
 ---
 # 🚀 GitHub Action for SBOM Generation (Scribe)
 Included GitHub Actions uses the [Bomber](https://github.com/scribe-security/bomber) cli tool. \
-Actions allow one to both generate manage and sign, verify both image and directory targets.
+Actions allow one to both generate manage sign and verify image and directory targets.
 * Attestation options are based on the [cocosign](https://github.com/scribe-security/cocosign) FM,
 Which allows a wide range of signing and verifing flows including KMS, and Sigstore flows.
 By default action will default to .
