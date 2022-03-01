@@ -4,10 +4,10 @@ author: mikey strauss - Scribe
 date: March 1, 2022
 geometry: margin=2cm
 ---
-# 🚀 GitHub Action scribe bom tool
-
-Includes GitHub Actions using the [Bomber](https://github.com/scribe-security/bomber) cli tool. 
-Attestation options are based on the [cocosign](https://github.com/scribe-security/cocosign) FM.
+# 🚀 GitHub Action for SBOM Generation (Scribe)
+Included GitHub Actions uses the [Bomber](https://github.com/scribe-security/bomber) cli tool. 
+Actions allow one to both generate manage and sign, verify both image and directory targets. \
+Attestation options are based on the [cocosign](https://github.com/scribe-security/cocosign) FM. \
 FM allows a wide range of signing and verifing flows including KMS, and Sigstore flows.
 By default action will default to .
 
