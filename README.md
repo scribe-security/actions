@@ -4,7 +4,6 @@ author: mikey strauss - Scribe
 date: March 1, 2022
 geometry: margin=2cm
 ---
-
 # GitHub Action scribe bom tool
 
 Includes GitHub Actions using the [Bomber](https://github.com/scribe-security/bomber) cli tool. 
@@ -23,7 +22,6 @@ Command allows users to create and upload SBOMs.
 - Supported Cached SBOMs/attestations locally
 - Supported Cached SBOMs/attestations by Scribe service (TBD).
 - Support Private registries (TBD)
-
 
 ## Verify action
 The action invokes a containerized `bomber` sub command `verify`.
@@ -101,11 +99,10 @@ Command allows users to verify a image via a signed attestation (Intoto).
     description: 'Attestation default config, options=[sigstore sigstore-github x509]'
     default: sigstore-github
 ```
+---
 
-
-## Example integrations
-Possible use case action usage you may reference. \
-Full details of the `bomber` and `cocoaign` please reference related documentations.
+## Integration examples
+Full full capabilities and details of the `bomber` and `cocoaign` please reference related documentations.
 
 ### Generate SBOM - cyclonedx
 <details>
@@ -241,8 +238,6 @@ Default attestation config: `sigstore-config` - sigstore (Fulcio, Rekor).
 
 </details>
 
-
-
 <details>
   <summary> Full image signing flow </summary>
 
@@ -346,9 +341,6 @@ You can upload results as workflow artifacts.
 ``` 
 
 </details>
-
-
-
 
 ## Custom configuration
 Add a `.bomber.yaml` file at your repository or pass with `--config` \
