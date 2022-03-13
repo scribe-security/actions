@@ -22,6 +22,7 @@ Command allows users to create and upload SBOMs.
 - Supported Cached SBOMs/attestations locally
 - Supported Cached SBOMs/attestations by Scribe service (TBD).
 - Support Private registries (TBD)
+- Add custom labels, envs to SBOM and attestations
 
 ## Verify action
 The action invokes a containerized `bomber` sub command `verify`.
@@ -58,6 +59,18 @@ Command allows users to verify a image via a signed attestation (Intoto).
     description: 'Output result to file'
   name:
     description: 'Custom/project name'
+  label:
+    description: 'Custom label'
+  label2:
+    description: 'Custom label 2'
+  label3:
+    description: 'Custom label 3'
+  env:
+    description: 'Custom env'
+  env2:
+    description: 'Custom env 2'
+  env3:
+    description: 'Custom env 3'
   force:
     description: 'Force overwrite cache'
     default: false
@@ -68,6 +81,15 @@ Command allows users to verify a image via a signed attestation (Intoto).
   attest-default:
     description: 'Attestation default config, options=[sigstore sigstore-github x509]'
     default: sigstore-github
+  scribe-enable:
+    description: 'Enable scribe client'
+    default: false
+  scribe-username:
+    description: 'Scribe client id' 
+  scribe-password:
+    description: 'Scribe access token' 
+  scribe-url:
+    description: 'Scribe url' 
 ```
 
 ### Verify Action
@@ -84,6 +106,9 @@ Command allows users to verify a image via a signed attestation (Intoto).
     default: 0
   config:
     description: 'Application config file'
+  inputformat:
+    description: 'Sbom input formatter, options=[attest-cyclonedx-json] (default "attest-cyclonedx-json")'
+    default: attest-cyclonedx-json
   output-directory:
     description: 'report output directory'
     default: ./bomber_reports

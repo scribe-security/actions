@@ -1,6 +1,9 @@
 name: 'Bomber: bom'
 description: 'Generates a Software Bill Of Materials (SBOM) from container images and filesystems'
 author: Mikey Strauss
+outputs:
+  output-file:
+    description: 'Bom output file path'
 inputs:
   type:
     description: 'Target source type options=[docker,docker-archive, oci-archive, dir, registry]'
@@ -23,6 +26,18 @@ inputs:
     description: 'Output result to file'
   name:
     description: 'Custom/project name'
+  label:
+    description: 'Custom label'
+  label2:
+    description: 'Custom label 2'
+  label3:
+    description: 'Custom label 3'
+  env:
+    description: 'Custom env'
+  env2:
+    description: 'Custom env 2'
+  env3:
+    description: 'Custom env 3'
   force:
     description: 'Force overwrite cache'
     default: false
@@ -53,6 +68,12 @@ runs:
     - ${{ inputs.config && '--config=' }}${{ inputs.config }}
     - --format=${{ inputs.format }}
     - ${{ inputs.name && '--name=' }}${{ inputs.name }}
+    - ${{ inputs.label && '--label=' }}${{ inputs.label }}
+    - ${{ inputs.label2 && '--label=' }}${{ inputs.label2 }}
+    - ${{ inputs.label3 && '--label=' }}${{ inputs.label3 }}
+    - ${{ inputs.env && '--env=' }}${{ inputs.env }}
+    - ${{ inputs.env2 && '--env=' }}${{ inputs.env2 }}
+    - ${{ inputs.env3 && '--env=' }}${{ inputs.env3 }}
     - --output-directory=${{ inputs.output-directory }}
     - --force=${{ inputs.force }}
     - --context-type=github
