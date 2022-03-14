@@ -82,7 +82,8 @@ runs:
     - ${{ inputs.attest-default && '--attest.default=' }}${{ inputs.attest-default }}
     - --scribe.enable=${{ inputs.scribe-enable }}
     - ${{ inputs.scribe-username && '--scribe.username=' }}${{ inputs.scribe-username }}
-    - ${{ inputs.scribe-password && '-E --scribe.password=' }}${{ inputs.scribe-password }}
+    - ${{ inputs.scribe-password && '--scribe.password=' }}${{ inputs.scribe-password }}
+    - ${{ inputs.scribe-password && '-E' }}
     - ${{ inputs.scribe-url && '--scribe.url=' }}${{ inputs.scribe-url }}
 
 branding:
