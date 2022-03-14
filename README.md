@@ -36,7 +36,7 @@ Command allows users to verify a image via a signed attestation (Intoto).
 - Verify trust of a local directory (see example below).
 
 ## Input arguments
-### Bom Action
+### Bom Action input
 ```yaml
   type:
     description: 'Target source type options=[docker,docker-archive, oci-archive, dir, registry]'
@@ -91,6 +91,13 @@ Command allows users to verify a image via a signed attestation (Intoto).
   scribe-url:
     description: 'Scribe url' 
 ```
+
+### Bom Action output
+```yaml
+  output-file:
+    description: 'Bom output file path'
+```
+
 
 ### Verify Action
 
@@ -153,6 +160,45 @@ Custom public registry, skip cache (using `Force`), output verbose (debug level)
     verbose: 3
     force: true
 ```
+
+### Custom user metadata
+Custom metadata added to sbom
+Data will be included in signed payload when output is an attestation.
+```YAML
+- name: Generate cyclonedx json SBOM - add metadata - labels, envs, name
+  id: bomber_labels
+  uses: scribe-security/bomber-action/bom@v27
+  with:
+      target: 'busybox:latest'
+      verbose: 3
+      format: json
+      force: true
+      name: name_value
+      env: test_env
+      label: test_label
+  env:
+    test_env: test_env_value
+```
+</details>
+
+
+<details>
+  <summary> Upload SBOM artifact </summary>
+
+Upload sbom as CI artifact
+
+```YAML
+- name: Generate cyclonedx json SBOM
+  uses: scribe-security/bomber-action/bom@v23
+  with:
+    target: 'busybox:latest'
+    format: json
+
+- uses: actions/upload-artifact@v2
+  with:
+    name: bomber-busybox-output-test
+    path: ${{ steps.bomber_json.outputs.OUTPUT_PATH }}
+``` 
 </details>
 
 <details>
