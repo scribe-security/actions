@@ -35,6 +35,14 @@ Command allows users to verify a image via a signed attestation (Intoto).
 - Verify trust of a image (local or remote) (see example below).
 - Verify trust of a local directory (see example below).
 
+## Bomber install
+Action installs bomber locally allowing full access to all the CLI options.
+Command allows users to utilize bomber in a non containerized envrionment.
+- Generate/verify SBOM from docker daemon images
+- Generate/sign local directories (not mapped to the working dir)
+- Use a workflow global cache directory
+- Use bomber functionality not exposed by containerized actions.
+
 ## Input arguments
 ### Bom Action input
 ```yaml
@@ -130,6 +138,15 @@ Command allows users to verify a image via a signed attestation (Intoto).
   attest-default:
     description: 'Attestation default config, options=[sigstore sigstore-github x509]'
     default: sigstore-github
+```
+
+### Installer action
+Currently action only supports linux debian installation (ubuntu jobs)
+Action adds default github bomber configuration to XDG_CONFIG_HOME/bomber/ sub dir (to overwrite use `--config` when running bomber).
+```yaml
+  version:
+    description: 'specific version'
+    required: false
 ```
 ---
 
@@ -396,6 +413,7 @@ Full job example of a directory signing and verifying flow.
 
 </details>
 
+
 ### General
 <details>
   <summary> Upload artifacts (local cache)</summary>
@@ -409,6 +427,22 @@ You can upload results as workflow artifacts.
   with:
     name: bomber-busybox-reports
     path: bomber_reports
+``` 
+
+</details>
+
+<details>
+  <summary> Install bomber (tool) </summary>
+
+Install bomber as a tool
+```YAML
+- name: install bomber
+  uses: scribe-security/bomber-action/installer@master
+
+- name: bomber run
+  run: |
+    bomber --version
+    bomber bom busybox:latest -vv
 ``` 
 
 </details>
