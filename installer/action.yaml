@@ -29,7 +29,7 @@ runs:
           echo "$RUNNER_OS Config not supported by installer"
           exit 1
         fi
-        cp $PLATFORM_SCRIPT /etc/bomber/bomber.yaml
+        cp $DEFAULT_CONFIG /etc/bomber/bomber.yaml
       shell: bash
 branding:
   icon: shield
