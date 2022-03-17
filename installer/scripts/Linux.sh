@@ -6,7 +6,7 @@ else
     sudocmd="sudo"
 fi
 $sudocmd apt --quiet update --assume-yes || true
-$sudocmd apt --quiet install --assume-yes curl apt-transport-https
+$sudocmd apt --quiet install --assume-yes curl
 $sudocmd apt --quiet purge --assume-yes bomber
 
 curl --silent --show-error https://scribesecuriy.jfrog.io/artifactory/api/security/keypair/scribe-artifactory/public | $sudocmd apt-key add -
