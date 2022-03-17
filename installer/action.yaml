@@ -37,7 +37,7 @@ runs:
             sudocmd="sudo"
         fi
         $sudocmd mkdir -p $XDG_CONFIG_HOME/bomber
-        $sudocmd cp $DEFAULT_CONFIG $XDG_CONFIG_HOME/bomber/bomber.yaml
+        $sudocmd cp $DEFAULT_CONFIG $XDG_CONFIG_HOME/bomber/agent.yaml
       shell: bash
 branding:
   icon: shield
