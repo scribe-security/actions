@@ -36,5 +36,6 @@ else
 echo "Scribe bomber could not be found"
 exit 1
 fi
+$sudocmd mkdir -p /etc/bomber/
 
 

@@ -19,6 +19,16 @@ runs:
           exit 1
         fi
         . "$PLATFORM_SCRIPT" ${{ inputs.version }}
+    - name: Installing bomber default config
+      run: |
+        #!/bin/bash
+        DEFAULT_CONFIG="$GITHUB_ACTION_PATH/configs/$RUNNER_OS.yaml"
+        if [ ! -e "$DEFAULT_CONFIG" ]
+        then
+          echo "$RUNNER_OS Config not supported by installer"
+          exit 1
+        fi
+        cp $PLATFORM_SCRIPT /etc/bomber/bomber.yaml
       shell: bash
 branding:
   icon: shield
