@@ -21,6 +21,7 @@ runs:
         fi
 
         . "$PLATFORM_SCRIPT"
+      shell: bash
 branding:
   icon: shield
   color: green
