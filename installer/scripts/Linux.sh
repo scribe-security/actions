@@ -1,6 +1,8 @@
 #!/bin/bash
 set -x
 
+VERSION=$1
+
 if [ "$(id --user)" -eq "0" ]; then
     sudocmd=""
 else
@@ -23,7 +25,13 @@ $sudocmd apt update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/scribe.list 
 
 apt show bomber | grep -q scribe
 if [ $? -eq 0 ] ; then
+
+if [[ ! -z "${VERSION}" ]] ; then
+$sudocmd apt --quiet install --assume-yes bomber=$VERSION
+else
 $sudocmd apt --quiet install --assume-yes bomber
+fi
+
 else
 echo "Scribe bomber could not be found"
 exit 1

@@ -13,14 +13,12 @@ runs:
       run: |
         #!/bin/bash
         PLATFORM_SCRIPT="$GITHUB_ACTION_PATH/scripts/$RUNNER_OS.sh"
-        ls -lh $GITHUB_ACTION_PATH
         if [ ! -e "$PLATFORM_SCRIPT" ]
         then
           echo "$RUNNER_OS OS not supported by installer"
           exit 1
         fi
-
-        . "$PLATFORM_SCRIPT"
+        . "$PLATFORM_SCRIPT" $VERSION
       shell: bash
 branding:
   icon: shield
