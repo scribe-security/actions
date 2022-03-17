@@ -6,7 +6,7 @@ bom:
     context-type: github
 verify:
   context:
-    context-type: "github"
+    context-type: github
 sign:
   context:
-    context-type: "github"
+    context-type: github
