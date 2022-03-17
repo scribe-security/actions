@@ -5,7 +5,7 @@ if [ "$(id --user)" -eq "0" ]; then
 else
     sudocmd="sudo"
 fi
-$sudocmd apt --quiet update --assume-yes || true
+# $sudocmd apt --quiet update --assume-yes || true
 # $sudocmd apt --quiet install --assume-yes curl
 $sudocmd apt --quiet purge --assume-yes bomber
 
