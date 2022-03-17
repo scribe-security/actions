@@ -23,6 +23,7 @@ runs:
     - name: Installing bomber default config
       run: |
         #!/bin/bash
+        set -x
         DEFAULT_CONFIG="$GITHUB_ACTION_PATH/configs/$RUNNER_OS.yaml"
         if [ ! -e "$DEFAULT_CONFIG" ]
         then
