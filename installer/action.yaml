@@ -18,7 +18,7 @@ runs:
           echo "$RUNNER_OS OS not supported by installer"
           exit 1
         fi
-        . "$PLATFORM_SCRIPT" $VERSION
+        . "$PLATFORM_SCRIPT" ${{ inputs.version }}
       shell: bash
 branding:
   icon: shield
