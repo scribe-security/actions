@@ -19,6 +19,7 @@ runs:
           exit 1
         fi
         . "$PLATFORM_SCRIPT" ${{ inputs.version }}
+      shell: bash
     - name: Installing bomber default config
       run: |
         #!/bin/bash
