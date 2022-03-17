@@ -29,7 +29,14 @@ runs:
           echo "$RUNNER_OS Config not supported by installer"
           exit 1
         fi
-        cp $DEFAULT_CONFIG /etc/bomber/bomber.yaml
+
+        if [ "$(id --user)" -eq "0" ]; then
+            sudocmd=""
+        else
+            sudocmd="sudo"
+        fi
+        $sudocmd mkdir -p /etc/bomber/
+        $sudocmd cp $DEFAULT_CONFIG /etc/bomber/bomber.yaml
       shell: bash
 branding:
   icon: shield
