@@ -38,8 +38,6 @@ runs:
         fi
         $sudocmd mkdir -p $XDG_CONFIG_HOME/bomber
         $sudocmd cp $DEFAULT_CONFIG $XDG_CONFIG_HOME/bomber/bomber.yaml
-        mkdir -p $XDG_CONFIG_HOME/bomber
-        cp $DEFAULT_CONFIG $XDG_CONFIG_HOME/bomber/bomber.yaml
       shell: bash
 branding:
   icon: shield
