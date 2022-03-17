@@ -13,5 +13,6 @@ echo -e "machine https://scribesecuriy.jfrog.io/\nlogin $ARTIFACTORY_USERNAME\np
 echo -e "Package: bomber\nPin: release n=stable\nPin-Priority: 900" | $sudocmd tee /etc/apt/preferences.d/scribe_bomber > /dev/null
 echo 'deb https://scribesecuriy.jfrog.io/artifactory/scribe-debian-local stable non-free'
 echo 'deb https://scribesecuriy.jfrog.io/artifactory/scribe-debian-local stable non-free' | $sudocmd tee /etc/apt/sources.list.d/scribe.list > /dev/null
-$sudocmd apt --quiet update --assume-yes || true
+
+$sudocmd apt update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/scribe.list || true
 $sudocmd apt --quiet install --assume-yes bomber
