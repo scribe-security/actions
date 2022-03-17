@@ -22,7 +22,7 @@ echo 'deb https://scribesecuriy.jfrog.io/artifactory/scribe-debian-local stable 
 $sudocmd apt update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/scribe.list || true
 
 apt show bomber | grep -q scribe
-$ if [ $? -eq 0 ] ; then
+if [ $? -eq 0 ] ; then
 $sudocmd apt --quiet install --assume-yes bomber
 else
 echo "Scribe bomber could not be found"
