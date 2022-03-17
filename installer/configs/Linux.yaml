@@ -1,4 +1,4 @@
-output-file: ./bomber_reports
+output-directory: ./bomber_reports
 attest:
   default: sigstore-github
 bom:
