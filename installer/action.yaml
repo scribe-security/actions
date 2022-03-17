@@ -1,0 +1,26 @@
+name: 'Bomber: installer'
+description: 'Install bomber - Software Bill Of Materials (SBOM) tool'
+author: Mikey Strauss
+inputs:
+  version:
+    description: 'specific version'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+    run: |
+       #!/bin/bash
+      PLATFORM_SCRIPT="$GITHUB_ACTION_PATH/scripts/$RUNNER_OS.sh"
+      ls -lh $GITHUB_ACTION_PATH
+      if [ ! -e "$PLATFORM_SCRIPT" ]
+      then
+        echo "$RUNNER_OS OS not supported by installer"
+        exit 1
+      fi
+
+      . "$PLATFORM_SCRIPT"
+branding:
+  icon: shield
+  color: green
