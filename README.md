@@ -9,12 +9,11 @@ Included GitHub Actions uses the [Bomber](https://github.com/scribe-security/bom
 Actions allow one to both generate manage sign and verify image and directory targets.
 * Attestation options are based on the [cocosign](https://github.com/scribe-security/cocosign) FM,
 Which allows a wide range of signing and verifing flows including KMS, and Sigstore flows.
-By default action will default to .
 
 ## Bom action
 The action invokes a containerized `bomber` sub command `bom`. 
 Command allows users to create and upload SBOMs.
-- By default action will include github specific context to its SBOMs (GIT_URL, DOB_ID .. etc)
+- By default action will include github specific context to its SBOMs (GIT_URL, JOB_ID .. etc)
 - By default action will sign Sigstore keyless flow while using github own workload auth as a OIDC identity (See example below).
 - Generates detailed SBOMs for images and directories (mapped to working dir) targets. 
 - Upload SBOMs to scribe service (Not supported yet)
