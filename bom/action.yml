@@ -38,6 +38,14 @@ inputs:
     description: 'Custom env 2'
   env3:
     description: 'Custom env 3'
+  filter-regex:
+    description: 'Filter out files by regex'
+  filter-regex2:
+    description: 'Filter out files by regex 2'
+    default: .*\.pyc
+  filter-regex3:
+    description: 'Filter out files by regex 3'
+    default: \.git/.*
   force:
     description: 'Force overwrite cache'
     default: false
@@ -74,6 +82,9 @@ runs:
     - ${{ inputs.env && '--env=' }}${{ inputs.env }}
     - ${{ inputs.env2 && '--env=' }}${{ inputs.env2 }}
     - ${{ inputs.env3 && '--env=' }}${{ inputs.env3 }}
+    - ${{ inputs.filter-regex && '--filter-regex=' }}${{ inputs.filter-regex }}
+    - ${{ inputs.filter-regex2 && '--filter-regex=' }}${{ inputs.filter-regex2 }}
+    - ${{ inputs.filter-regex3 && '--filter-regex=' }}${{ inputs.filter-regex3 }} 
     - --output-directory=${{ inputs.output-directory }}
     - --force=${{ inputs.force }}
     - --context-type=github
