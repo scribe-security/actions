@@ -78,6 +78,12 @@ Command allows users to utilize bomber in a non containerized envrionment.
     description: 'Custom env 2'
   env3:
     description: 'Custom env 3'
+  filter-regex:
+    description: 'Filter out files by regex'
+  filter-regex2:
+    description: 'Filter out files by regex'
+  filter-regex3:
+    description: 'Filter out files by regex'
   force:
     description: 'Force overwrite cache'
     default: false
@@ -128,8 +134,14 @@ Command allows users to utilize bomber in a non containerized envrionment.
     default: ./bomber_reports
   output-file:
     description: 'Output result to file'
-  name:
-    description: 'Custom/project name'
+  filter-regex:
+    description: 'Filter out files by regex'
+  filter-regex2:
+    description: 'Filter out files by regex 2'
+    default: .*\.pyc
+  filter-regex3:
+    description: 'Filter out files by regex 3'
+    default: \.git/.*
   attest-config:
     description: 'Attestation config map'
   attest-name:

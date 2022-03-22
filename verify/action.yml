@@ -21,8 +21,14 @@ inputs:
     default: ./bomber_reports
   output-file:
     description: 'Output result to file'
-  name:
-    description: 'Custom/project name'
+  filter-regex:
+    description: 'Filter out files by regex'
+  filter-regex2:
+    description: 'Filter out files by regex 2'
+    default: .*\.pyc
+  filter-regex3:
+    description: 'Filter out files by regex 3'
+    default: \.git/.*
   attest-config:
     description: 'Attestation config map'
   attest-name:
@@ -41,9 +47,11 @@ runs:
     - ${{ inputs.config && '--config=' }}${{ inputs.config }}
     # - --format=${{ inputs.format }}
     - --inputformat=${{ inputs.inputformat }}
-    - ${{ inputs.name && '--name=' }}${{ inputs.name }}
     - --output-directory=${{ inputs.output-directory }}
     - --context-type=github
+    - ${{ inputs.filter-regex && '--filter-regex=' }}${{ inputs.filter-regex }}
+    - ${{ inputs.filter-regex2 && '--filter-regex=' }}${{ inputs.filter-regex2 }}
+    - ${{ inputs.filter-regex3 && '--filter-regex=' }}${{ inputs.filter-regex3 }} 
     - ${{ inputs.attest-config && '--attest.config=' }}${{ inputs.attest-config }}
     - ${{ inputs.attest-name && '--attest.name=' }}${{ inputs.attest-name }}
     - ${{ inputs.attest-default && '--attest.default=' }}${{ inputs.attest-default }}
