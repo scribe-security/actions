@@ -19,6 +19,10 @@ inputs:
   format:
     description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]'
     default: cyclonedxjson
+  format2:
+    description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]'
+  format3:
+    description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]'
   output-directory:
     description: 'Report output directory'
     default: ./bomber_reports
@@ -74,7 +78,9 @@ runs:
     - ${{ inputs.type }}:${{ inputs.target }}
     - --verbose=${{ inputs.verbose }}
     - ${{ inputs.config && '--config=' }}${{ inputs.config }}
-    - --format=${{ inputs.format }}
+    - ${{ inputs.format && '--format=' }}${{ inputs.format }}
+    - ${{ inputs.format2 && '--format=' }}${{ inputs.format2 }}
+    - ${{ inputs.format3 && '--format=' }}${{ inputs.format3 }}
     - ${{ inputs.name && '--name=' }}${{ inputs.name }}
     - ${{ inputs.label && '--label=' }}${{ inputs.label }}
     - ${{ inputs.label2 && '--label=' }}${{ inputs.label2 }}
