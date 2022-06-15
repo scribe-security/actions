@@ -112,7 +112,7 @@ runs:
     - ${{ inputs.scribe-clientid && '--scribe.clientid=' }}${{ inputs.scribe-clientid }}
     - ${{ inputs.scribe-clientsecret && '--scribe.clientsecret=' }}${{ inputs.scribe-clientsecret }}
     - ${{ inputs.scribe-url && '--scribe.url=' }}${{ inputs.scribe-url }}
-    - ${{ inputs.context-dir && '--scribe.context-dir=' }}${{ inputscontext-dir }}
+    - ${{ inputs.context-dir && '--scribe.context-dir=' }}${{ inputs.context-dir }}
 
 
 branding:
