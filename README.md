@@ -4,7 +4,20 @@ author: mikey strauss - Scribe
 date: March 1, 2022
 geometry: margin=2cm
 ---
-# 🚀 GitHub Action for SBOM Generation (Scribe)
+# 🚀 Scribe provided sensor actions
+Scribe provides a set of of sensors who collect evidence and verify the supply chain integrity.
+
+# 🚀 Foot
+---
+Foot tool provides a tool to verify integrity of a supply chain.
+
+## Report action
+Command pulls Scribe reports.
+Once a set of evidence are uploaded to Scribe service a report is generated.
+By default report is written in to local cache. 
+
+# 🚀  Gensbom actions - GitHub Action for SBOM Generation (Scribe)
+---
 Included GitHub Actions uses the [Bomber](https://github.com/scribe-security/bomber) cli tool. \
 Actions allow one to both generate manage sign and verify image and directory targets.
 * Attestation options are based on the [cocosign](https://github.com/scribe-security/cocosign) FM,

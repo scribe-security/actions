@@ -50,6 +50,12 @@ inputs:
   filter-regex3:
     description: 'Filter out files by regex 3'
     default: \.git/.*
+  collect-regex:
+    description: 'Collect files content by regex'
+  collect-regex2:
+    description: 'Collect files content by regex'
+  collect-regex3:
+    description: 'Collect files content by regex'
   force:
     description: 'Force overwrite cache'
     default: false
@@ -63,12 +69,14 @@ inputs:
   scribe-enable:
     description: 'Enable scribe client'
     default: false
-  scribe-username:
+  scribe-clientid:
     description: 'Scribe client id' 
-  scribe-password:
+  scribe-clientsecret:
     description: 'Scribe access token' 
   scribe-url:
     description: 'Scribe url' 
+  context-dir:
+    description: 'Context dir' 
 
 runs:
   using: docker
@@ -91,6 +99,9 @@ runs:
     - ${{ inputs.filter-regex && '--filter-regex=' }}${{ inputs.filter-regex }}
     - ${{ inputs.filter-regex2 && '--filter-regex=' }}${{ inputs.filter-regex2 }}
     - ${{ inputs.filter-regex3 && '--filter-regex=' }}${{ inputs.filter-regex3 }} 
+    - ${{ inputs.collect-regex && '--collect-regex=' }}${{ inputs.collect-regex }}
+    - ${{ inputs.collect-regex2 && '--collect-regex=' }}${{ inputs.collect-regex2 }}
+    - ${{ inputs.collect-regex3 && '--collect-regex=' }}${{ inputs.collect-regex3 }} 
     - --output-directory=${{ inputs.output-directory }}
     - --force=${{ inputs.force }}
     - --context-type=github
@@ -98,9 +109,11 @@ runs:
     - ${{ inputs.attest-name && '--attest.name=' }}${{ inputs.attest-name }}
     - ${{ inputs.attest-default && '--attest.default=' }}${{ inputs.attest-default }}
     - --scribe.enable=${{ inputs.scribe-enable }}
-    - ${{ inputs.scribe-username && '--scribe.username=' }}${{ inputs.scribe-username }}
-    - ${{ inputs.scribe-password && '--scribe.password=' }}${{ inputs.scribe-password }}
+    - ${{ inputs.scribe-clientid && '--scribe.clientid=' }}${{ inputs.scribe-clientid }}
+    - ${{ inputs.scribe-clientsecret && '--scribe.clientsecret=' }}${{ inputs.scribe-clientsecret }}
     - ${{ inputs.scribe-url && '--scribe.url=' }}${{ inputs.scribe-url }}
+    - ${{ inputs.context-dir && '--scribe.context-dir=' }}${{ inputscontext-dir }}
+
 
 branding:
   icon: shield
