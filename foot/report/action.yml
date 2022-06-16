@@ -20,7 +20,7 @@ inputs:
     default: false
   scribe-clientid:
     description: 'Scribe client id' 
-  scribe-clientsecert:
+  scribe-clientsecret:
     description: 'Scribe access token' 
   scribe-url:
     description: 'Scribe url' 
