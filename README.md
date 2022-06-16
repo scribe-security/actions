@@ -1,5 +1,5 @@
 ---
-title: Bomber
+title: gensbom
 author: mikey strauss - Scribe
 date: March 1, 2022
 geometry: margin=2cm
@@ -16,15 +16,40 @@ Command pulls Scribe reports.
 Once a set of evidence are uploaded to Scribe service a report is generated.
 By default report is written in to local cache. 
 
+## Input arguments
+### Report action
+```yaml
+  verbose:
+    description: 'Increase verbosity (-v = info, -vv = debug)'
+    default: 0
+  config:
+    description: 'Application config file'
+  output-directory:
+    description: 'Output directory path'
+    default: ./foot_reports
+  output-file:
+    description: 'Output file path'
+  scribe-enable:
+    description: 'Enable scribe client'
+    default: false
+  scribe-clientid:
+    description: 'Scribe client id' 
+  scribe-clientsecert:
+    description: 'Scribe access token' 
+  scribe-url:
+    description: 'Scribe url' 
+
+```
+
 # 🚀  Gensbom actions - GitHub Action for SBOM Generation (Scribe)
 ---
-Included GitHub Actions uses the [Bomber](https://github.com/scribe-security/bomber) cli tool. \
+Included GitHub Actions uses the [gensbom](https://github.com/scribe-security/gensbom) cli tool. \
 Actions allow one to both generate manage sign and verify image and directory targets.
 * Attestation options are based on the [cocosign](https://github.com/scribe-security/cocosign) FM,
 Which allows a wide range of signing and verifing flows including KMS, and Sigstore flows.
 
 ## Bom action
-The action invokes a containerized `bomber` sub command `bom`. 
+The action invokes a containerized `gensbom` sub command `bom`. 
 Command allows users to create and upload SBOMs.
 - By default action will include github specific context to its SBOMs (GIT_URL, JOB_ID .. etc)
 - By default action will sign Sigstore keyless flow while using github own workload auth as a OIDC identity (See example below).
@@ -37,7 +62,7 @@ Command allows users to create and upload SBOMs.
 - Add custom labels, envs to SBOM and attestations
 
 ## Verify action
-The action invokes a containerized `bomber` sub command `verify`.
+The action invokes a containerized `gensbom` sub command `verify`.
 Command allows users to verify a image via a signed attestation (Intoto).
 - By default action will include github specific context to its SBOMs (GIT_URL, DOB_ID .. etc)
 - By default action will verify Sigstore keyless flow (Fulcio CA + Rekor log) while using github (See example below).
@@ -47,13 +72,13 @@ Command allows users to verify a image via a signed attestation (Intoto).
 - Verify trust of a image (local or remote) (see example below).
 - Verify trust of a local directory (see example below).
 
-## Bomber install
-Action installs bomber locally allowing full access to all the CLI options.
-Command allows users to utilize bomber in a non containerized envrionment.
+## Gensbom install
+Action installs gensbom locally allowing full access to all the CLI options.
+Command allows users to utilize gensbom in a non containerized envrionment.
 - Generate/verify SBOM from docker daemon images
 - Generate/sign local directories (not mapped to the working dir)
 - Use a workflow global cache directory
-- Use bomber functionality not exposed by containerized actions.
+- Use gensbom functionality not exposed by containerized actions.
 
 ## Input arguments
 ### Bom Action input
@@ -72,9 +97,13 @@ Command allows users to utilize bomber in a non containerized envrionment.
   format:
     description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]'
     default: cyclonedxjson
+  format2:
+    description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]'
+  format3:
+    description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]'
   output-directory:
     description: 'Report output directory'
-    default: ./bomber_reports
+    default: ./gensbom_reports
   output-file:
     description: 'Output result to file'
   name:
@@ -94,28 +123,38 @@ Command allows users to utilize bomber in a non containerized envrionment.
   filter-regex:
     description: 'Filter out files by regex'
   filter-regex2:
-    description: 'Filter out files by regex'
+    description: 'Filter out files by regex 2'
+    default: .*\.pyc
   filter-regex3:
-    description: 'Filter out files by regex'
+    description: 'Filter out files by regex 3'
+    default: \.git/.*
+  collect-regex:
+    description: 'Collect files content by regex'
+  collect-regex2:
+    description: 'Collect files content by regex'
+  collect-regex3:
+    description: 'Collect files content by regex'
   force:
     description: 'Force overwrite cache'
     default: false
   attest-config:
     description: 'Attestation config map'
   attest-name:
-    description: 'Attestation config name (default "bomber")'
+    description: 'Attestation config name (default "gensbom")'
   attest-default:
     description: 'Attestation default config, options=[sigstore sigstore-github x509]'
     default: sigstore-github
   scribe-enable:
     description: 'Enable scribe client'
     default: false
-  scribe-username:
+  scribe-clientid:
     description: 'Scribe client id' 
-  scribe-password:
+  scribe-clientsecret:
     description: 'Scribe access token' 
   scribe-url:
     description: 'Scribe url' 
+  context-dir:
+    description: 'Context dir' 
 ```
 
 ### Bom Action output
@@ -144,7 +183,7 @@ Command allows users to utilize bomber in a non containerized envrionment.
     default: attest-cyclonedx-json
   output-directory:
     description: 'report output directory'
-    default: ./bomber_reports
+    default: ./gensbom_reports
   output-file:
     description: 'Output result to file'
   filter-regex:
@@ -158,7 +197,7 @@ Command allows users to utilize bomber in a non containerized envrionment.
   attest-config:
     description: 'Attestation config map'
   attest-name:
-    description: 'Attestation config name (default "bomber")'
+    description: 'Attestation config name (default "gensbom")'
   attest-default:
     description: 'Attestation default config, options=[sigstore sigstore-github x509]'
     default: sigstore-github
@@ -166,7 +205,7 @@ Command allows users to utilize bomber in a non containerized envrionment.
 
 ### Installer action
 Currently action only supports linux debian installation (ubuntu jobs)
-Action adds default github bomber configuration to XDG_CONFIG_HOME/bomber/ sub dir (to overwrite use `--config` when running bomber).
+Action adds default github gensbom configuration to XDG_CONFIG_HOME/gensbom/ sub dir (to overwrite use `--config` when running gensbom).
 ```yaml
   version:
     description: 'specific version'
@@ -175,7 +214,7 @@ Action adds default github bomber configuration to XDG_CONFIG_HOME/bomber/ sub d
 ---
 
 ## Integration examples
-Full full capabilities and details of the `bomber` and `cocoaign` please reference related documentations.
+Full full capabilities and details of the `gensbom` and `cocoaign` please reference related documentations.
 
 ### Generate SBOM - cyclonedx
 <details>
@@ -186,7 +225,7 @@ Create SBOM from remote `busybox:latest` image, skip if found by cache.
 
 ```YAML
 - name: Generate cyclonedx json SBOM
-  uses: scribe-security/bomber-action/bom@v23
+  uses: scribe-security/actions/gensbom/bom@master
   with:
     target: 'busybox:latest'
     format: json
@@ -195,7 +234,7 @@ Create SBOM from remote `busybox:latest` image, skip if found by cache.
 Custom public registry, skip cache (using `Force`), output verbose (debug level) log output.
 ```YAML
 - name: Generate cyclonedx json SBOM
-  uses: scribe-security/bomber-action/bom@v23
+  uses: scribe-security/actions/gensbom/bom@master
   with:
     target: 'scribesecuriy.jfrog.io/scribe-docker-public-local/stub_remote:latest'
     verbose: 3
@@ -207,8 +246,8 @@ Custom metadata added to sbom
 Data will be included in signed payload when output is an attestation.
 ```YAML
 - name: Generate cyclonedx json SBOM - add metadata - labels, envs, name
-  id: bomber_labels
-  uses: scribe-security/bomber-action/bom@v27
+  id: gensbom_labels
+  uses: scribe-security/actions/gensbom/bom@master
   with:
       target: 'busybox:latest'
       verbose: 3
@@ -230,15 +269,15 @@ Upload sbom as CI artifact
 
 ```YAML
 - name: Generate cyclonedx json SBOM
-  uses: scribe-security/bomber-action/bom@v23
+  uses: scribe-security/actions/gensbom/bom@master
   with:
     target: 'busybox:latest'
     format: json
 
 - uses: actions/upload-artifact@v2
   with:
-    name: bomber-busybox-output-test
-    path: ${{ steps.bomber_json.outputs.OUTPUT_PATH }}
+    name: gensbom-busybox-output-test
+    path: ${{ steps.gensbom_json.outputs.OUTPUT_PATH }}
 ``` 
 </details>
 
@@ -257,7 +296,7 @@ Create SBOM from local `docker save ...` output.
     outputs: type=docker,dest=stub_local.tar
 
 - name: Generate cyclonedx json SBOM
-  uses: scribe-security/bomber-action/bom@v23
+  uses: scribe-security/actions/gensbom/bom@master
   with:
     type: docker-archive
     target: '/github/workspace/stub_local.tar'
@@ -279,7 +318,7 @@ Create SBOM from local oci archive.
     outputs: type=docker,dest=stub_oci_local.tar
 
 - name: Generate cyclonedx json SBOM
-  uses: scribe-security/bomber-action/bom@v23
+  uses: scribe-security/actions/gensbom/bom@master
   with:
     type: oci-archive
     target: '/github/workspace/stub_oci_local.tar'
@@ -299,9 +338,9 @@ Note directory must be mapped to working dir for  actions to access (containeriz
     mkdir testdir
     echo "test" > testdir/test.txt
 
-- name: Bomber attest dir
-  id: bomber_attest_dir
-  uses: scribe-security/bomber-action/bom@v23
+- name: gensbom attest dir
+  id: gensbom_attest_dir
+  uses: scribe-security/actions/gensbom/bom@master
   with:
     type: dir
     target: '/github/workspace/testdir'
@@ -325,8 +364,8 @@ job_example:
   permissions:
     id-token: write
   steps:
-    - name: Bomber attest
-    uses: scribe-security/bomber-action/bom@v23
+    - name: gensbom attest
+    uses: scribe-security/actions/gensbom/bom@master
     with:
         target: 'busybox:latest'
         format: attest
@@ -342,8 +381,8 @@ Note: `docker` in target `type` field (is not accessible because it requires doc
 Default attestation config: `sigstore-config` - sigstore (Fulcio, Rekor).
 
 ```YAML
-- name: Bomber verify
-  uses: scribe-security/bomber-action/verify@v23
+- name: gensbom verify
+  uses: scribe-security/actions/gensbom/verify@master
   with:
     target: 'busybox:latest'
 ``` 
@@ -356,7 +395,7 @@ Default attestation config: `sigstore-config` - sigstore (Fulcio, Rekor).
 Full job example of a image signing and verifying flow.
 
 ```YAML
- bomber-busybox-test:
+ gensbom-busybox-test:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -368,26 +407,26 @@ Full job example of a image signing and verifying flow.
         with:
           fetch-depth: 0
 
-      - name: Bomber attest
-        id: bomber_attest
-        uses: scribe-security/bomber-action/bom@v23
+      - name: gensbom attest
+        id: gensbom_attest
+        uses: scribe-security/actions/gensbom/bom@master
         with:
            target: 'busybox:latest'
            verbose: 3
            format: attest
            force: true
 
-      - name: Bomber verify
-        id: bomber_verify
-        uses: scribe-security/bomber-action/verify@v23
+      - name: gensbom verify
+        id: gensbom_verify
+        uses: scribe-security/actions/gensbom/verify@master
         with:
            target: 'busybox:latest'
            verbose: 3
 
       - uses: actions/upload-artifact@v2
         with:
-          name: bomber-busybox-test
-          path: bomber_reports
+          name: gensbom-busybox-test
+          path: gensbom_reports
 ``` 
 
 </details>
@@ -398,7 +437,7 @@ Full job example of a image signing and verifying flow.
 Full job example of a directory signing and verifying flow.
 
 ```YAML
-  bomber-dir-test:
+  gensbom-dir-test:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -410,9 +449,9 @@ Full job example of a directory signing and verifying flow.
         with:
           fetch-depth: 0
 
-      - name: Bomber attest workdir
-        id: bomber_attest_dir
-        uses: scribe-security/bomber-action/bom@v23
+      - name: gensbom attest workdir
+        id: gensbom_attest_dir
+        uses: scribe-security/actions/gensbom/bom@master
         with:
            type: dir
            target: '/github/workspace/'
@@ -420,9 +459,9 @@ Full job example of a directory signing and verifying flow.
            format: attest
            force: true
 
-      - name: Bomber verify workdir
-        id: bomber_verify_dir
-        uses: scribe-security/bomber-action/verify@v23
+      - name: gensbom verify workdir
+        id: gensbom_verify_dir
+        uses: scribe-security/actions/gensbom/verify@master
         with:
            type: dir
            target: '/github/workspace/'
@@ -430,9 +469,9 @@ Full job example of a directory signing and verifying flow.
       
       - uses: actions/upload-artifact@v2
         with:
-          name: bomber-workdir-reports
+          name: gensbom-workdir-reports
           path: |
-            bomber_reports      
+            gensbom_reports      
 ``` 
 
 </details>
@@ -442,38 +481,38 @@ Full job example of a directory signing and verifying flow.
 <details>
   <summary> Upload artifacts (local cache)</summary>
 
-Input field `output-directory` specifics (default `bomber_reports`) the location of cache output.
+Input field `output-directory` specifics (default `gensbom_reports`) the location of cache output.
 You can upload results as workflow artifacts.
 
 ```YAML
 
 - uses: actions/upload-artifact@v2
   with:
-    name: bomber-busybox-reports
-    path: bomber_reports
+    name: gensbom-busybox-reports
+    path: gensbom_reports
 ``` 
 
 </details>
 
 <details>
-  <summary> Install bomber (tool) </summary>
+  <summary> Install gensbom (tool) </summary>
 
-Install bomber as a tool
+Install gensbom as a tool
 ```YAML
-- name: install bomber
-  uses: scribe-security/bomber-action/installer@master
+- name: install gensbom
+  uses: scribe-security/actions/gensbom/installer@master
 
-- name: bomber run
+- name: gensbom run
   run: |
-    bomber --version
-    bomber bom busybox:latest -vv
+    gensbom --version
+    gensbom bom busybox:latest -vv
 ``` 
 
 </details>
 
 ## Custom configuration
-Add a `.bomber.yaml` file at your repository or pass with `--config` \
-for more [Bomber configuration](https://github.com/scribe-security/bomber) \
+Add a `.gensbom.yaml` file at your repository or pass with `--config` \
+for more [gensbom configuration](https://github.com/scribe-security/gensbom) \
 You may add a `.cocosign.yaml` file at your repository or pass with `--config` \
 for more [Cocosign configuration](https://github.com/scribe-security/cocosign)
 
