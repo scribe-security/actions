@@ -1,4 +1,4 @@
-name: 'Foot: bom'
+name: 'Foot: report'
 description: 'Foot tool provides a tool to verify integrity of a supply chain'
 author: Mikey Strauss
 outputs:
@@ -28,6 +28,8 @@ inputs:
     description: 'Scribe auth login url' 
   scribe-audience:
     description: 'Scribe auth audience' 
+  context-dir:
+    description: 'Context dir' 
 
 runs:
   using: docker
@@ -38,13 +40,15 @@ runs:
     - ${{ inputs.config && '--config=' }}${{ inputs.config }} 
     - --output-directory=${{ inputs.output-directory }}
     - --force=${{ inputs.force }}
-    # - --context-type=github
+    - --context-type=github
     - --scribe.enable=${{ inputs.scribe-enable }}
+    - ${{ inputs.output-file && '--scribe.output-file=' }}${{ inputs.output-file }}
     - ${{ inputs.scribe-clientid && '--scribe.clientid=' }}${{ inputs.scribe-clientid }}
     - ${{ inputs.scribe-clientsecret && '--scribe.clientsecret=' }}${{ inputs.scribe-clientsecret }}
     - ${{ inputs.scribe-url && '--scribe.url=' }}${{ inputs.scribe-url }}
     - ${{ inputs.scribe-loginurl && '--scribe.loginurl=' }}${{ inputs.scribe-loginurl }}
     - ${{ inputs.scribe-audience && '--scribe.auth.audience=' }}${{ inputs.auth.scribe-audience }}
+    - ${{ inputs.context-dir && '--scribe.context-dir=' }}${{ inputs.context-dir }}
 
 branding:
   icon: shield
