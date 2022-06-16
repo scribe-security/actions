@@ -24,6 +24,10 @@ inputs:
     description: 'Scribe access token' 
   scribe-url:
     description: 'Scribe url' 
+  scribe-loginurl:
+    description: 'Scribe auth login url' 
+  scribe-audience:
+    description: 'Scribe auth audience' 
 
 runs:
   using: docker
@@ -39,6 +43,8 @@ runs:
     - ${{ inputs.scribe-clientid && '--scribe.clientid=' }}${{ inputs.scribe-clientid }}
     - ${{ inputs.scribe-clientsecret && '--scribe.clientsecret=' }}${{ inputs.scribe-clientsecret }}
     - ${{ inputs.scribe-url && '--scribe.url=' }}${{ inputs.scribe-url }}
+    - ${{ inputs.scribe-loginurl && '--scribe.loginurl=' }}${{ inputs.scribe-loginurl }}
+    - ${{ inputs.scribe-audience && '--scribe.auth.audience=' }}${{ inputs.auth.scribe-audience }}
 
 branding:
   icon: shield
