@@ -12,7 +12,8 @@ runs:
     - name: Installing bomber
       run: |
         #!/bin/bash
-        PLATFORM_SCRIPT="$GITHUB_ACTION_PATH/gensbom/scripts/$RUNNER_OS.sh"
+        PLATFORM_SCRIPT="$GITHUB_ACTION_PATH/gensbom/installer/scripts/$RUNNER_OS.sh"
+        ls -lh $GITHUB_ACTION_PATH/gensbom
         if [ ! -e "$PLATFORM_SCRIPT" ]
         then
           echo "$RUNNER_OS OS not supported by installer"
