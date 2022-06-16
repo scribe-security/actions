@@ -39,7 +39,6 @@ runs:
     - --verbose=${{ inputs.verbose }}
     - ${{ inputs.config && '--config=' }}${{ inputs.config }} 
     - --output-directory=${{ inputs.output-directory }}
-    - --force=${{ inputs.force }}
     - --context-type=github
     - --scribe.enable=${{ inputs.scribe-enable }}
     - ${{ inputs.output-file && '--scribe.output-file=' }}${{ inputs.output-file }}
