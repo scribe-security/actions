@@ -12,7 +12,7 @@ runs:
     - name: Installing bomber
       run: |
         #!/bin/bash
-        PLATFORM_SCRIPT="$GITHUB_ACTION_PATH/gensbom/installer/scripts/$RUNNER_OS.sh"
+        PLATFORM_SCRIPT="$GITHUB_ACTION_PATH/scripts/$RUNNER_OS.sh"
         ls -lh $GITHUB_ACTION_PATH
         if [ ! -e "$PLATFORM_SCRIPT" ]
         then
