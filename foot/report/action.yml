@@ -41,7 +41,7 @@ runs:
     - --output-directory=${{ inputs.output-directory }}
     - --context-type=github
     - --scribe.enable=${{ inputs.scribe-enable }}
-    - ${{ inputs.output-file && '--scribe.output-file=' }}${{ inputs.output-file }}
+    - ${{ inputs.output-file && '--output-file=' }}${{ inputs.output-file }}
     - ${{ inputs.scribe-clientid && '--scribe.clientid=' }}${{ inputs.scribe-clientid }}
     - ${{ inputs.scribe-clientsecret && '--scribe.clientsecret=' }}${{ inputs.scribe-clientsecret }}
     - ${{ inputs.scribe-url && '--scribe.url=' }}${{ inputs.scribe-url }}
