@@ -27,14 +27,14 @@ inputs:
 
 runs:
   using: docker
-  image: docker://scribesecuriy.jfrog.io/scribe-docker-public-local/bomber:latest 
+  image: docker://scribesecuriy.jfrog.io/scribe-docker-public-local/foot:latest 
   args:
     - report
     - --verbose=${{ inputs.verbose }}
     - ${{ inputs.config && '--config=' }}${{ inputs.config }} 
     - --output-directory=${{ inputs.output-directory }}
     - --force=${{ inputs.force }}
-    - --context-type=github
+    # - --context-type=github
     - --scribe.enable=${{ inputs.scribe-enable }}
     - ${{ inputs.scribe-clientid && '--scribe.clientid=' }}${{ inputs.scribe-clientid }}
     - ${{ inputs.scribe-clientsecret && '--scribe.clientsecret=' }}${{ inputs.scribe-clientsecret }}
