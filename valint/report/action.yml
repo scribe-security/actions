@@ -1,5 +1,5 @@
-name: 'Foot: report'
-description: 'Foot tool provides a tool to verify integrity of a supply chain'
+name: 'Valint: report'
+description: 'Valint tool provides a tool to verify integrity of a supply chain'
 author: Mikey Strauss
 outputs:
   output-file:
@@ -12,7 +12,7 @@ inputs:
     description: 'Application config file'
   output-directory:
     description: 'Output directory path'
-    default: ./foot_reports
+    default: ./valint_reports
   output-file:
     description: 'Output file path'
   scribe-enable:
@@ -33,7 +33,7 @@ inputs:
 
 runs:
   using: docker
-  image: docker://scribesecuriy.jfrog.io/scribe-docker-public-local/foot:latest 
+  image: docker://scribesecuriy.jfrog.io/scribe-docker-public-local/valint:latest 
   args:
     - report
     - --verbose=${{ inputs.verbose }}
