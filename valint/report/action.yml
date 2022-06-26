@@ -30,6 +30,19 @@ inputs:
     description: 'Scribe auth audience' 
   context-dir:
     description: 'Context dir' 
+  section:
+    description: 'Select report sections'
+  section2:
+    description: 'Select report sections2'
+  section3:
+    description: 'Select report sections3'
+  integrity:
+    description: 'Select report integrity'
+  integrity2:
+    description: 'Select report integrity2'
+  integrity3:
+    description: 'Select report integrity3'
+
 
 runs:
   using: docker
@@ -48,6 +61,12 @@ runs:
     - ${{ inputs.scribe-loginurl && '--scribe.loginurl=' }}${{ inputs.scribe-loginurl }}
     - ${{ inputs.scribe-audience && '--scribe.auth.audience=' }}${{ inputs.scribe-audience }}
     - ${{ inputs.context-dir && '--scribe.context-dir=' }}${{ inputs.context-dir }}
+    - ${{ inputs.section && '--section=' }}${{ inputs.section }}
+    - ${{ inputs.section2 && '--section=' }}${{ inputs.section2 }}
+    - ${{ inputs.section3 && '--section=' }}${{ inputs.section3 }} 
+    - ${{ inputs.integrity && '--integrity=' }}${{ inputs.integrity }}
+    - ${{ inputs.integrity2 && '--integrity=' }}${{ inputs.integrity2 }}
+    - ${{ inputs.integrity3 && '--integrity=' }}${{ inputs.integrity3 }} 
 
 branding:
   icon: shield

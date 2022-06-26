@@ -7,17 +7,16 @@ geometry: margin=2cm
 # 🚀 Scribe provided sensor actions
 Scribe provides a set of of sensors who collect evidence and verify the supply chain integrity.
 
-# 🚀 Foot
+# 🚀 valint
 ---
-Foot tool provides a tool to verify integrity of a supply chain.
+valint tool provides a tool to verify integrity of a supply chain.
 
 ## Report action
 Command pulls Scribe reports.
 Once a set of evidence are uploaded to Scribe service a report is generated.
 By default report is written in to local cache. 
 
-## Input arguments
-### Report action
+### Input arguments
 ```yaml
   verbose:
     description: 'Increase verbosity (-v = info, -vv = debug)'
@@ -26,7 +25,7 @@ By default report is written in to local cache.
     description: 'Application config file'
   output-directory:
     description: 'Output directory path'
-    default: ./foot_reports
+    default: ./valint_reports
   output-file:
     description: 'Output file path'
   scribe-enable:
@@ -34,12 +33,72 @@ By default report is written in to local cache.
     default: false
   scribe-clientid:
     description: 'Scribe client id' 
-  scribe-clientsecert:
+  scribe-clientsecret:
     description: 'Scribe access token' 
   scribe-url:
     description: 'Scribe url' 
-
+  scribe-loginurl:
+    description: 'Scribe auth login url' 
+  scribe-audience:
+    description: 'Scribe auth audience' 
+  context-dir:
+    description: 'Context dir' 
+  section:
+    description: 'Select report sections'
+  section2:
+    description: 'Select report sections2'
+  section3:
+    description: 'Select report sections3'
+  integrity:
+    description: 'Select report integrity'
+  integrity2:
+    description: 'Select report integrity2'
+  integrity3:
+    description: 'Select report integrity3'
 ```
+
+### Output arguments
+```yaml
+  output-file:
+    description: 'Report output file path'
+```
+
+## Integration examples
+<details>
+  <summary>  Scribe integrity report download </summary>
+
+Download integrity report.
+
+```YAML
+    - name: Valint - download integrity report
+      id: download_report
+      uses: scribe-security/actions/valint/report@master
+      with:
+          scribe-clientid: ${{ inputs.clientid }}
+          scribe-clientsecret: ${{ inputs.clientsecret }}
+``` 
+Default output will be set to ~/.cache/valint/ subdirectory (Use `output-directory` argument to overwrite location).
+</details>
+
+
+<details>
+  <summary> Simple download report verbose, custom output path </summary>
+
+Download report for CI run, save output to local file.
+
+```YAML
+    - name: Valint - download integrity report
+      id: download_report
+      uses: scribe-security/actions/valint/report@master
+      with:
+          verbose: 3
+          scribe-enable: true
+          scribe-clientid: ${{ inputs.clientid }}
+          scribe-clientsecret: ${{ inputs.clientsecret }}
+          output-file: "./result_report.json"
+``` 
+</details>
+
 
 # 🚀  Gensbom actions - GitHub Action for SBOM Generation (Scribe)
 ---
