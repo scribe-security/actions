@@ -18,8 +18,9 @@ echo -e "machine https://scribesecuriy.jfrog.io/\nlogin $ARTIFACTORY_USERNAME\np
 fi 
 
 echo -e "Package: bomber\nPin: release n=stable\nPin-Priority: 900" | $sudocmd tee /etc/apt/preferences.d/scribe_bomber > /dev/null
-echo 'deb https://scribesecuriy.jfrog.io/artifactory/scribe-debian-local stable non-free'
-echo 'deb https://scribesecuriy.jfrog.io/artifactory/scribe-debian-local stable non-free' | $sudocmd tee /etc/apt/sources.list.d/scribe.list > /dev/null
+# Truth is i am not sure why our debian are mapped to x86_64 on artifactory and not the amd64 arch ... 2DO fix this somehow..
+echo 'deb [arch=x86_64] https://scribesecuriy.jfrog.io/artifactory/scribe-debian-local stable non-free'
+echo 'deb [arch=x86_64] https://scribesecuriy.jfrog.io/artifactory/scribe-debian-local stable non-free' | $sudocmd tee /etc/apt/sources.list.d/scribe.list > /dev/null
 
 $sudocmd apt update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/scribe.list || true
 
