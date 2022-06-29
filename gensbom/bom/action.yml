@@ -74,7 +74,11 @@ inputs:
   scribe-clientsecret:
     description: 'Scribe access token' 
   scribe-url:
-    description: 'Scribe url' 
+    description: 'Scribe url'
+  scribe-loginurl:
+    description: 'Scribe auth login url' 
+  scribe-audience:
+    description: 'Scribe auth audience' 
   context-dir:
     description: 'Context dir' 
 
@@ -112,6 +116,8 @@ runs:
     - ${{ inputs.scribe-clientid && '--scribe.clientid=' }}${{ inputs.scribe-clientid }}
     - ${{ inputs.scribe-clientsecret && '--scribe.clientsecret=' }}${{ inputs.scribe-clientsecret }}
     - ${{ inputs.scribe-url && '--scribe.url=' }}${{ inputs.scribe-url }}
+    - ${{ inputs.scribe-loginurl && '--scribe.loginurl=' }}${{ inputs.scribe-loginurl }}
+    - ${{ inputs.scribe-audience && '--scribe.auth.audience=' }}${{ inputs.scribe-audience }}
     - ${{ inputs.context-dir && '--scribe.context-dir=' }}${{ inputs.context-dir }}
 
 
