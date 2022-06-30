@@ -4,7 +4,7 @@ author: mikey strauss - Scribe
 date: June 30, 2022
 geometry: margin=2cm
 ---
-# 🛸 Scribe github actions 🛸
+# Scribe github actions 🛸
 Scribe provides a set of of actions to collect evidence and verify the integrity of your supply chain.
 * Gensbom - gitHub Action for SBOM Generation (Scribe) 
 * Valint - validate supply chain integrity tool
