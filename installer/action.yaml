@@ -9,6 +9,13 @@ inputs:
     description: 'tool'
     required: false
     default: 'bomber'
+  version2:
+    description: 'specific version'
+    required: false
+  tool2:
+    description: 'tool'
+    required: false
+    default: 'valint:v2.4.1'
 
 runs:
   using: "composite"
@@ -16,6 +23,15 @@ runs:
     - name: Installing tool
       run: |
         #!/bin/bash
+        toolArray=( ${{ inputs.tool }}
+                    ${{ inputs.tool2 }} )
+
+        for tool in "${toolArray[@]}" ; do
+            toolName="${tool%%:*}"
+            toolVersion="${tool##*:}"
+            printf "Installing %s, Version: %s.\n" "$toolName" "$toolVersion"
+        done
+
         echo "Installing" ${{ inputs.version }} ${{ inputs.tool }} 
         PLATFORM_SCRIPT="$GITHUB_ACTION_PATH/scripts/$RUNNER_OS.sh"
         ls -lh $GITHUB_ACTION_PATH
@@ -24,7 +40,7 @@ runs:
           echo "$RUNNER_OS OS not supported by installer"
           exit 1
         fi
-        . "$PLATFORM_SCRIPT" ${{ inputs.tool }}  ${{ inputs.version }}
+        . "$PLATFORM_SCRIPT" ${{ inputs.tool }} ${{ inputs.version }}
       shell: bash
     - name: Installing tool default config
       run: |
