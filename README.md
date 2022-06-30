@@ -8,7 +8,7 @@ geometry: margin=2cm
 Scribe provides a set of of actions to collect evidence and verify the integrity of your supply chain.
 * Gensbom - gitHub Action for SBOM Generation (Scribe) 
 * Valint - validate supply chain integrity tool
-* fs-tracker - TBD
+* Fs-tracker - TBD
 
 # 🚀  Gensbom actions
 Included GitHub Actions uses the [gensbom](https://github.com/scribe-security/bomber) cli tool. \
