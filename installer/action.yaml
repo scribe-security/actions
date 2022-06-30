@@ -1,0 +1,51 @@
+name: 'tool: installer'
+description: 'Scribe tool installer'
+author: Mikey Strauss
+inputs:
+  version:
+    description: 'specific version'
+    required: false
+  tool:
+    description: 'tool'
+    required: false
+    default: 'bomber'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Installing tool
+      run: |
+        #!/bin/bash
+        echo "Installing" ${{ inputs.version }} ${{ inputs.tool }} 
+        PLATFORM_SCRIPT="$GITHUB_ACTION_PATH/scripts/$RUNNER_OS.sh"
+        ls -lh $GITHUB_ACTION_PATH
+        if [ ! -e "$PLATFORM_SCRIPT" ]
+        then
+          echo "$RUNNER_OS OS not supported by installer"
+          exit 1
+        fi
+        . "$PLATFORM_SCRIPT" ${{ inputs.version }} ${{ inputs.tool }} 
+      shell: bash
+    - name: Installing tool default config
+      run: |
+        #!/bin/bash
+        set -x
+        TOOL_NAME=${{ inputs.tool }}
+        DEFAULT_CONFIG="$GITHUB_ACTION_PATH/configs/$RUNNER_OS.yaml"
+        if [ ! -e "$DEFAULT_CONFIG" ]
+        then
+          echo "$RUNNER_OS Config not supported by installer"
+          exit 1
+        fi
+
+        if [ "$(id --user)" -eq "0" ]; then
+            sudocmd=""
+        else
+            sudocmd="sudo"
+        fi
+        $sudocmd mkdir -p $XDG_CONFIG_HOME/$TOOL_NAME
+        $sudocmd cp $DEFAULT_CONFIG $XDG_CONFIG_HOME/$TOOL_NAME/$TOOL_NAME.yaml
+      shell: bash
+branding:
+  icon: shield
+  color: green
