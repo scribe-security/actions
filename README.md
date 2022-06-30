@@ -189,7 +189,12 @@ Command allows users to utilize gensbom in a non containerized environment.
 - Use gensbom functionality not exposed by containerized actions.
 Note: Installing gensbom locally is very useful when you want to create an sbom out side the workflow default workspace directory.
 
----
+## Custom configuration
+Add a `.gensbom.yaml` file at your repository or pass with `--config` \
+for more [gensbom configuration](https://github.com/scribe-security/gensbom) \
+You may add a `.cocosign.yaml` file at your repository or pass with `--config` \
+for more [Cocosign configuration](https://github.com/scribe-security/cocosign)
+
 ## Integration examples
 Full full capabilities and details of the `gensbom` and `cocoaign` please reference related documentations.
 
@@ -485,7 +490,6 @@ Install gensbom as a tool
 ``` 
 
 </details>
-<br />
 
 # Valint actions 🦀
 Included GitHub Actions uses the [valint](https://github.com/scribe-security/valint) cli tool. \
@@ -581,8 +585,6 @@ Download report for CI run, save output to local file.
 ``` 
 </details>
 
-<br />
-
 # Installer actions 🍕
 Installer action allows you to install tools locally and use them directly.
 # Inputs
@@ -626,10 +628,3 @@ If you like to sample globally installed packages.
       bomber bom dir:/usr/local/lib -vv
 ``` 
 </details>
-
-## Custom configuration
-Add a `.gensbom.yaml` file at your repository or pass with `--config` \
-for more [gensbom configuration](https://github.com/scribe-security/gensbom) \
-You may add a `.cocosign.yaml` file at your repository or pass with `--config` \
-for more [Cocosign configuration](https://github.com/scribe-security/cocosign)
-
