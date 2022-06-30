@@ -25,7 +25,7 @@ echo 'deb [arch=x86_64] https://scribesecuriy.jfrog.io/artifactory/scribe-debian
 
 $sudocmd apt update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/scribe.list || true
 
-apt show bomber || true | grep -q scribe 
+apt show $TOOL_NAME || true | grep -q scribe 
 if [ $? -eq 0 ] ; then
     if [[ ! -z "${VERSION}" ]] ; then
     $sudocmd apt --quiet install --assume-yes $TOOL_NAME=$VERSION
