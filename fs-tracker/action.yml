@@ -1,0 +1,30 @@
+name: 'fs-tracker'
+description: 'Track processes and file-system events using ptrace'
+author: Shahar paz
+inputs:
+  # verbose:
+  #   description: 'Increase verbosity (-v = info, -vv = debug)'
+  #   default: 0
+  config:
+    description: 'Application config file'
+  events:
+    description: 'Output file for logging file-system events'
+  format:
+    description: 'Output files format: "json" for JSON or "jsonl" for JSON-Lines)'
+  procs :
+    description: ' Output file for logging running processes '
+
+runs:
+  using: docker
+  image: docker://scribesecuriy.jfrog.io/scribe-docker-public-local/fs-tracker:latest 
+  args:
+    # - --verbose=${{ inputs.verbose }}
+    - ${{ inputs.config && '--config=' }}${{ inputs.config }}
+    - ${{ inputs.events && '--events=' }}${{ inputs.events }} 
+    - ${{ inputs.format && '--format=' }}${{ inputs.format }} 
+    - ${{ inputs.config && '--config=' }}${{ inputs.config }} 
+    - ${{ inputs.procs && '--procs=' }}${{ inputs.procs }} 
+
+branding:
+  icon: shield
+  color: blue
