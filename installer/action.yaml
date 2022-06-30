@@ -24,14 +24,14 @@ runs:
           echo "$RUNNER_OS OS not supported by installer"
           exit 1
         fi
-        . "$PLATFORM_SCRIPT" ${{ inputs.version }} ${{ inputs.tool }} 
+        . "$PLATFORM_SCRIPT" ${{ inputs.tool }}  ${{ inputs.version }}
       shell: bash
     - name: Installing tool default config
       run: |
         #!/bin/bash
         set -x
         TOOL_NAME=${{ inputs.tool }}
-        DEFAULT_CONFIG="$GITHUB_ACTION_PATH/configs/$RUNNER_OS.yaml"
+        DEFAULT_CONFIG="$GITHUB_ACTION_PATH/configs/$TOOL_NAME/$RUNNER_OS.yaml"
         if [ ! -e "$DEFAULT_CONFIG" ]
         then
           echo "$RUNNER_OS Config not supported by installer"
