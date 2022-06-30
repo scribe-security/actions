@@ -4,105 +4,14 @@ author: mikey strauss - Scribe
 date: March 1, 2022
 geometry: margin=2cm
 ---
-# 🚀 Scribe provided sensor actions
-Scribe provides a set of of sensors who collect evidence and verify the supply chain integrity.
+# 🛸 Scribe provided sensor actions 🛸
+Scribe provides a set of of actions to collect evidence and verify the integrity of your supply chain.
+* Gensbom - gitHub Action for SBOM Generation (Scribe) 
+* Valint - validate supply chain integrity tool
+* fs-tracker - TBD
 
-# 🚀 valint
----
-valint tool provides a tool to verify integrity of a supply chain.
-
-## Report action
-Command pulls Scribe reports.
-Once a set of evidence are uploaded to Scribe service a report is generated.
-By default report is written in to local cache. 
-
-### Input arguments
-```yaml
-  verbose:
-    description: 'Increase verbosity (-v = info, -vv = debug)'
-    default: 0
-  config:
-    description: 'Application config file'
-  output-directory:
-    description: 'Output directory path'
-    default: ./valint_reports
-  output-file:
-    description: 'Output file path'
-  scribe-enable:
-    description: 'Enable scribe client'
-    default: false
-  scribe-clientid:
-    description: 'Scribe client id' 
-  scribe-clientsecret:
-    description: 'Scribe access token' 
-  scribe-url:
-    description: 'Scribe url' 
-  scribe-loginurl:
-    description: 'Scribe auth login url' 
-  scribe-audience:
-    description: 'Scribe auth audience' 
-  context-dir:
-    description: 'Context dir' 
-  section:
-    description: 'Select report sections'
-  section2:
-    description: 'Select report sections2'
-  section3:
-    description: 'Select report sections3'
-  integrity:
-    description: 'Select report integrity'
-  integrity2:
-    description: 'Select report integrity2'
-  integrity3:
-    description: 'Select report integrity3'
-```
-
-### Output arguments
-```yaml
-  output-file:
-    description: 'Report output file path'
-```
-
-## Integration examples
-<details>
-  <summary>  Scribe integrity report download </summary>
-
-Download integrity report.
-
-```YAML
-    - name: Valint - download integrity report
-      id: download_report
-      uses: scribe-security/actions/valint/report@master
-      with:
-          scribe-clientid: ${{ inputs.clientid }}
-          scribe-clientsecret: ${{ inputs.clientsecret }}
-``` 
-Default output will be set to ~/.cache/valint/ subdirectory (Use `output-directory` argument to overwrite location).
-</details>
-
-
-<details>
-  <summary> Simple download report verbose, custom output path </summary>
-
-Download report for CI run, save output to local file.
-
-```YAML
-    - name: Valint - download integrity report
-      id: download_report
-      uses: scribe-security/actions/valint/report@master
-      with:
-          verbose: 3
-          scribe-enable: true
-          scribe-clientid: ${{ inputs.clientid }}
-          scribe-clientsecret: ${{ inputs.clientsecret }}
-          output-file: "./result_report.json"
-``` 
-</details>
-
-
-# 🚀  Gensbom actions - GitHub Action for SBOM Generation (Scribe)
----
-Included GitHub Actions uses the [gensbom](https://github.com/scribe-security/gensbom) cli tool. \
+# 🚀  Gensbom actions
+Included GitHub Actions uses the [gensbom](https://github.com/scribe-security/bomber) cli tool. \
 Actions allow one to both generate manage sign and verify image and directory targets.
 * Attestation options are based on the [cocosign](https://github.com/scribe-security/cocosign) FM,
 Which allows a wide range of signing and verifing flows including KMS, and Sigstore flows.
@@ -120,27 +29,7 @@ Command allows users to create and upload SBOMs.
 - Support Private registries (TBD)
 - Add custom labels, envs to SBOM and attestations
 
-## Verify action
-The action invokes a containerized `gensbom` sub command `verify`.
-Command allows users to verify a image via a signed attestation (Intoto).
-- By default action will include github specific context to its SBOMs (GIT_URL, DOB_ID .. etc)
-- By default action will verify Sigstore keyless flow (Fulcio CA + Rekor log) while using github (See example below).
-- Verify signer identity, for example Github workflow ids (2DO Add Input argument).
-- Download attestations (signed SBOMs) from scribe service (Not supported yet).
-- Verify attestations via OPA/CUE policies (see cocosign documentation).
-- Verify trust of a image (local or remote) (see example below).
-- Verify trust of a local directory (see example below).
-
-## Gensbom install
-Action installs gensbom locally allowing full access to all the CLI options.
-Command allows users to utilize gensbom in a non containerized envrionment.
-- Generate/verify SBOM from docker daemon images
-- Generate/sign local directories (not mapped to the working dir)
-- Use a workflow global cache directory
-- Use gensbom functionality not exposed by containerized actions.
-
-## Input arguments
-### Bom Action input
+### Input arguments
 ```yaml
   type:
     description: 'Target source type options=[docker,docker-archive, oci-archive, dir, registry]'
@@ -216,15 +105,33 @@ Command allows users to utilize gensbom in a non containerized envrionment.
     description: 'Context dir' 
 ```
 
-### Bom Action output
+### Output arguments
 ```yaml
   output-file:
     description: 'Bom output file path'
 ```
 
+### Usage
+```
+- name: Generate cyclonedx json SBOM
+  uses: scribe-security/actions/gensbom/bom@master
+  with:
+    target: 'busybox:latest'
+    verbose: 2
+```
 
-### Verify Action
+## Verify action
+The action invokes a containerized `gensbom` sub command `verify`.
+Command allows users to verify a image via a signed attestation (Intoto).
+- By default action will include github specific context to its SBOMs (GIT_URL, DOB_ID .. etc)
+- By default action will verify Sigstore keyless flow (Fulcio CA + Rekor log) while using github (See example below).
+- Verify signer identity, for example Github workflow ids (2DO Add Input argument).
+- Download attestations (signed SBOMs) from scribe service (Not supported yet).
+- Verify attestations via OPA/CUE policies (see cocosign documentation).
+- Verify trust of a image (local or remote) (see example below).
+- Verify trust of a local directory (see example below).
 
+### Input arguments
 ```yaml
   type:
     description: 'Target source type options=[docker,docker-archive, oci-archive, dir, registry]'
@@ -262,16 +169,27 @@ Command allows users to utilize gensbom in a non containerized envrionment.
     default: sigstore-github
 ```
 
-### Installer action
-Currently action only supports linux debian installation (ubuntu jobs)
-Action adds default github gensbom configuration to XDG_CONFIG_HOME/gensbom/ sub dir (to overwrite use `--config` when running gensbom).
-```yaml
-  version:
-    description: 'specific version'
-    required: false
+### Usage
 ```
----
+- name: Bomber verify
+  id: bomber_verify
+  uses: scribe-security/actions/gensbom/verify@master
+  with:
+      target: 'busybox:latest'
+      verbose: 2
+```
 
+## Gensbom install Locally
+You can use the `installer action to bomber locally allowing full access to all the CLI options.
+See `Installer action` section for details.
+Command allows users to utilize gensbom in a non containerized environment.
+- Generate/verify SBOM from docker daemon images
+- Generate/sign local directories (not mapped to the working dir)
+- Use a workflow global cache directory
+- Use gensbom functionality not exposed by containerized actions.
+Note: Installing gensbom locally is very useful when you want to create an sbom out side the workflow default workspace directory.
+
+---
 ## Integration examples
 Full full capabilities and details of the `gensbom` and `cocoaign` please reference related documentations.
 
@@ -389,7 +307,6 @@ Create SBOM from local oci archive.
 
 Create SBOM from local directory. \
 Note directory must be mapped to working dir for  actions to access (containerized action).
-<!-- 2DO support for local tool action examples -->
 
 ```YAML
 - name: Create dir
@@ -567,6 +484,147 @@ Install gensbom as a tool
     gensbom bom busybox:latest -vv
 ``` 
 
+</details>
+<br />
+
+# Valint actions 🦀
+Included GitHub Actions uses the [valint](https://github.com/scribe-security/valint) cli tool. \
+
+Valint tool provides a tool to verify integrity of a supply chain.
+Tool allows you to verify and validate the integrity multiple parts of the supply chain artifacts and flow.
+
+## Report action
+Command pulls Scribe reports.
+Once a set of evidence are uploaded to Scribe service a report is generated.
+By default report is written in to local cache. 
+
+### Input arguments
+```yaml
+  verbose:
+    description: 'Increase verbosity (-v = info, -vv = debug)'
+    default: 0
+  config:
+    description: 'Application config file'
+  output-directory:
+    description: 'Output directory path'
+    default: ./valint_reports
+  output-file:
+    description: 'Output file path'
+  scribe-enable:
+    description: 'Enable scribe client'
+    default: false
+  scribe-clientid:
+    description: 'Scribe client id' 
+  scribe-clientsecret:
+    description: 'Scribe access token' 
+  scribe-url:
+    description: 'Scribe url' 
+  scribe-loginurl:
+    description: 'Scribe auth login url' 
+  scribe-audience:
+    description: 'Scribe auth audience' 
+  context-dir:
+    description: 'Context dir' 
+  section:
+    description: 'Select report sections'
+  section2:
+    description: 'Select report sections2'
+  section3:
+    description: 'Select report sections3'
+  integrity:
+    description: 'Select report integrity'
+  integrity2:
+    description: 'Select report integrity2'
+  integrity3:
+    description: 'Select report integrity3'
+```
+
+### Output arguments
+```yaml
+  output-file:
+    description: 'Report output file path'
+```
+
+## Integration examples
+<details>
+  <summary>  Scribe integrity report download </summary>
+
+Download integrity report.
+
+```YAML
+    - name: Valint - download integrity report
+      id: download_report
+      uses: scribe-security/actions/valint/report@master
+      with:
+          scribe-clientid: ${{ inputs.clientid }}
+          scribe-clientsecret: ${{ inputs.clientsecret }}
+``` 
+Default output will be set to ~/.cache/valint/ subdirectory (Use `output-directory` argument to overwrite location).
+</details>
+
+
+<details>
+  <summary> Simple download report verbose, custom output path </summary>
+
+Download report for CI run, save output to local file.
+
+```YAML
+    - name: Valint - download integrity report
+      id: download_report
+      uses: scribe-security/actions/valint/report@master
+      with:
+          verbose: 3
+          scribe-enable: true
+          scribe-clientid: ${{ inputs.clientid }}
+          scribe-clientsecret: ${{ inputs.clientsecret }}
+          output-file: "./result_report.json"
+``` 
+</details>
+
+<br />
+
+# Installer actions 🍕
+Installer action allows you to install tools locally and use them directly.
+# Inputs
+```
+  version:
+    description: 'specific version'
+    required: false
+  tool:
+    description: 'tool'
+    required: false
+    default: 'bomber'
+```
+## Usage
+Current tool support:
+* bomber
+* valint
+* fs-tracker
+```yaml
+- name: install tool
+  uses: scribe-security/actions/installer@master
+  with:
+    tool: <tool name>
+```
+
+## Integration examples
+<details>
+  <summary> Install local bomber, bom os directory </summary>
+
+Create SBOM from the global directory. \
+If you like to sample globally installed packages.
+
+```YAML
+- name: install bomber
+  uses: scribe-security/actions/installer@master
+  with:
+    tool: bomber
+
+  - name: Bom - golbal packages dir
+    id: bomber_global
+    run: |
+      bomber bom dir:/usr/local/lib -vv
+``` 
 </details>
 
 ## Custom configuration
