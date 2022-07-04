@@ -45,10 +45,6 @@ Command allows users to create and upload SBOMs.
   format:
     description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]'
     default: cyclonedxjson
-  format2:
-    description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]'
-  format3:
-    description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]'
   output-directory:
     description: 'Report output directory'
     default: ./gensbom_reports
@@ -58,29 +54,12 @@ Command allows users to create and upload SBOMs.
     description: 'Custom/project name'
   label:
     description: 'Custom label'
-  label2:
-    description: 'Custom label 2'
-  label3:
-    description: 'Custom label 3'
   env:
     description: 'Custom env'
-  env2:
-    description: 'Custom env 2'
-  env3:
-    description: 'Custom env 3'
   filter-regex:
     description: 'Filter out files by regex'
-  filter-regex2:
-    description: 'Filter out files by regex 2'
-    default: .*\.pyc
-  filter-regex3:
-    description: 'Filter out files by regex 3'
-    default: \.git/.*
+    default: .*\.pyc,\.git/.*
   collect-regex:
-    description: 'Collect files content by regex'
-  collect-regex2:
-    description: 'Collect files content by regex'
-  collect-regex3:
     description: 'Collect files content by regex'
   force:
     description: 'Force overwrite cache'
@@ -154,12 +133,7 @@ Command allows users to verify a image via a signed attestation (Intoto).
     description: 'Output result to file'
   filter-regex:
     description: 'Filter out files by regex'
-  filter-regex2:
-    description: 'Filter out files by regex 2'
-    default: .*\.pyc
-  filter-regex3:
-    description: 'Filter out files by regex 3'
-    default: \.git/.*
+    default: .*\.pyc,\.git/.*
   attest-config:
     description: 'Attestation config map'
   attest-name:
@@ -531,16 +505,8 @@ By default report is written in to local cache.
     description: 'Context dir' 
   section:
     description: 'Select report sections'
-  section2:
-    description: 'Select report sections2'
-  section3:
-    description: 'Select report sections3'
   integrity:
     description: 'Select report integrity'
-  integrity2:
-    description: 'Select report integrity2'
-  integrity3:
-    description: 'Select report integrity3'
 ```
 
 ### Output arguments
