@@ -40,9 +40,9 @@ runs:
     - ${{ inputs.type }}:${{ inputs.target }}
     - --verbose=${{ inputs.verbose }}
     - ${{ inputs.config && '--config=' }}${{ inputs.config }}
+    - ${{ inputs.output-directory && '--output-directory=' }}${{ inputs.output-directory }}
     # - --format=${{ inputs.format }}
     - --inputformat=${{ inputs.inputformat }}
-    - --output-directory=${{ inputs.output-directory }}
     - --context-type=github
     - ${{ inputs.filter-regex && '--filter-regex=' }}${{ inputs.filter-regex }}
     - ${{ inputs.attest-config && '--attest.config=' }}${{ inputs.attest-config }}

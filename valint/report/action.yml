@@ -43,9 +43,9 @@ runs:
     - report
     - --verbose=${{ inputs.verbose }}
     - ${{ inputs.config && '--config=' }}${{ inputs.config }} 
-    - --output-directory=${{ inputs.output-directory }}
     - --context-type=github
-    - --scribe.enable=${{ inputs.scribe-enable }}
+    - ${{ inputs.output-directory && '--output-directory=' }}${{ inputs.output-directory }}
+    - ${{ inputs.scribe-enable && '--scribe.enable=' }}${{ inputs.scribe-enable }}
     - ${{ inputs.output-file && '--output-file=' }}${{ inputs.output-file }}
     - ${{ inputs.scribe-clientid && '--scribe.clientid=' }}${{ inputs.scribe-clientid }}
     - ${{ inputs.scribe-clientsecret && '--scribe.clientsecret=' }}${{ inputs.scribe-clientsecret }}

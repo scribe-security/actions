@@ -45,6 +45,7 @@ inputs:
     default: sigstore-github
   scribe-enable:
     description: 'Enable scribe client'
+    default: false
   scribe-clientid:
     description: 'Scribe client id' 
   scribe-clientsecret:
@@ -72,13 +73,13 @@ runs:
     - ${{ inputs.env && '--env=' }}${{ inputs.env }}
     - ${{ inputs.filter-regex && '--filter-regex=' }}${{ inputs.filter-regex }}
     - ${{ inputs.collect-regex && '--collect-regex=' }}${{ inputs.collect-regex }}
-    - --output-directory=${{ inputs.output-directory }}
-    - --force=${{ inputs.force }}
     - --context-type=github
-    - ${{ inputs.attest-config && '--attest.config=' }}${{ inputs.attest-config }}
+    - ${{ inputs.output-directory && '--output-directory=' }}${{ inputs.output-directory }}
+    - ${{ inputs.force && '--force=' }}${{ inputs.force }}
     - ${{ inputs.attest-name && '--attest.name=' }}${{ inputs.attest-name }}
     - ${{ inputs.attest-default && '--attest.default=' }}${{ inputs.attest-default }}
-    - --scribe.enable=${{ inputs.scribe-enable }}
+    - ${{ inputs.attest-default && '--attest.default=' }}${{ inputs.attest-default }}
+    - ${{ inputs.scribe-enable && '--scribe.enable=' }}${{ inputs.scribe-enable }}
     - ${{ inputs.scribe-clientid && '--scribe.clientid=' }}${{ inputs.scribe-clientid }}
     - ${{ inputs.scribe-clientsecret && '--scribe.clientsecret=' }}${{ inputs.scribe-clientsecret }}
     - ${{ inputs.scribe-url && '--scribe.url=' }}${{ inputs.scribe-url }}
