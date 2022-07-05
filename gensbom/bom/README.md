@@ -87,5 +87,5 @@ Attestations allow you to connect PKI based identities to your evidence and poli
 Use default configuration path `.cocosign.yaml`, or
 provide custom path using `attest-config` input argument.
 
-See details [documentation - attestation](docs/attestation.md)
+See details [documentation - attestation](docs/attestations.md) \
 Source see [cocosign](https://github.com/scribe-security/cocosign), attestation manager
