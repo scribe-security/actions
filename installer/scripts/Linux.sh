@@ -11,7 +11,7 @@ else
 fi
 $sudocmd apt --quiet update --assume-yes || true
 $sudocmd apt --quiet install --assume-yes curl
-$sudocmd apt --quiet purge --assume-yes $TOOL_NAME
+$sudocmd apt --quiet purge --assume-yes $TOOL_NAME || true
 curl --silent --show-error https://scribesecuriy.jfrog.io/artifactory/api/security/keypair/scribe-artifactory/public | $sudocmd apt-key add -
 if [[ ! -z "${ARTIFACTORY_USERNAME}" ]]  && [ ! -z "${ARTIFACTORY_PASSWORD}" ] ; then
 echo "Adding username password"
