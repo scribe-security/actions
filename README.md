@@ -62,7 +62,7 @@ Note: Installing gensbom locally is very useful when you want to create an sbom 
 See details [Installer - action](installer/README.md)
 
 
-## Valint actions 🦀
+# Valint actions 🦀
 Included GitHub Actions uses the [valint](https://github.com/scribe-security/valint) cli tool. \
 
 Valint tool provides a tool to verify integrity of a supply chain.
