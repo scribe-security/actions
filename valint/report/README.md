@@ -1,4 +1,4 @@
-# Report action
+# Report action #
 
 ### Input arguments
 ```yaml

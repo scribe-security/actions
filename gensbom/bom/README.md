@@ -1,3 +1,8 @@
+---
+title: Bom
+---
+
+
 # Bom action
 
 ### Input arguments

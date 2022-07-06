@@ -1,3 +1,7 @@
+---
+title: Verify
+---
+
 # Verify action
 
 ### Input arguments
