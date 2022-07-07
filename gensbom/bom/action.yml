@@ -20,7 +20,7 @@ inputs:
     description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]'
   output-directory:
     description: 'Report output directory'
-    default: ./bomber_reports
+    default: ./scribe/bomber
   output-file:
     description: 'Output result to file'
   name:

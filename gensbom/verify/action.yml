@@ -18,7 +18,7 @@ inputs:
     default: attest-cyclonedx-json
   output-directory:
     description: 'report output directory'
-    default: ./bomber_reports
+    default: ./scribe/bomber
   output-file:
     description: 'Output result to file'
   filter-regex:

@@ -23,7 +23,7 @@ title: Bom
     default: cyclonedxjson
   output-directory:
     description: 'Report output directory'
-    default: ./gensbom_reports
+    default: ./scribe/gensbom
   output-file:
     description: 'Output result to file'
   name:

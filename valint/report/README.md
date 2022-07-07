@@ -9,7 +9,7 @@
     description: 'Application config file'
   output-directory:
     description: 'Output directory path'
-    default: ./valint_reports
+    default: ./scribe/valint
   output-file:
     description: 'Output file path'
   scribe-enable:
