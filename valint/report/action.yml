@@ -52,7 +52,7 @@ runs:
     - ${{ inputs.scribe-url && '--scribe.url=' }}${{ inputs.scribe-url }}
     - ${{ inputs.scribe-loginurl && '--scribe.loginurl=' }}${{ inputs.scribe-loginurl }}
     - ${{ inputs.scribe-audience && '--scribe.auth.audience=' }}${{ inputs.scribe-audience }}
-    - ${{ inputs.context-dir && '--scribe.context-dir=' }}${{ inputs.context-dir }}
+    - ${{ inputs.context-dir && '--context-dir=' }}${{ inputs.context-dir }}
     - ${{ inputs.section && '--section=' }}${{ inputs.section }}
     - ${{ inputs.integrity && '--integrity=' }}${{ inputs.integrity }}
 
