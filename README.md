@@ -1,5 +1,5 @@
 ---
-title: scribe-actions
+title: Github-actions
 author: mikey strauss - Scribe
 date: June 30, 2022
 geometry: margin=2cm
@@ -284,7 +284,7 @@ Custom private registry, skip cache (using `Force`), output verbose (debug level
 - name: Generate cyclonedx json SBOM
   uses: scribe-security/actions/gensbom/bom@master
   with:
-    target: 'scribesecuriy.jfrog.io/scribe-docker-public-local/stub_remote:latest'
+    target: 'scribesecuriy.jfrog.io/scribe-docker-local/stub_remote:latest'
     verbose: 3
     force: true
 ```

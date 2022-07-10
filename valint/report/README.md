@@ -38,3 +38,15 @@
   output-file:
     description: 'Report output file path'
 ```
+
+### Usage
+```YAML
+- name: Valint - download report
+  id: valint_report
+  uses: scribe-security/actions/valint/report@master
+  with:
+      verbose: 2
+      scribe-enable: true
+      scribe-clientid: ${{ inputs.clientid }}
+      scribe-clientsecret: ${{ inputs.clientsecret }}
+```
