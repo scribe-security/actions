@@ -18,7 +18,6 @@ Actions allow one to both collect sbom evidence for images and directory targets
 Source see [gensbom](https://github.com/scribe-security/bomber), Sbom generator
 Source see [cocosign](https://github.com/scribe-security/cocosign), attestation manager
 
-
 ## Bom action
 The action invokes a containerized `gensbom` sub command `bom`. 
 Command allows users to create and upload SBOMs.
@@ -40,8 +39,8 @@ The action invokes a containerized `gensbom` sub command `verify`.
 Command allows users to verify a image via a signed attestation (In-toto).
 - By default action will include github specific context to its SBOMs (GIT_URL, DOB_ID .. etc)
 - By default action will verify Sigstore keyless flow (Fulcio CA + Rekor log) while using github (See example below).
-- Verify signer identity, for example Github workflow ids (2DO Add Input argument).
-- Download attestations (signed SBOMs) from scribe service (Not supported yet).
+- Verify signer identity, for example Github workflow ids.
+- Download attestations (signed SBOMs) from scribe service.
 - Verify attestations via OPA/CUE policies (see cocosign documentation).
 - Verify trust of a image (local or remote) (see example below).
 - Verify trust of a local directory (see example below).
@@ -76,8 +75,21 @@ By default report is written in to local cache.
 See details [Valint - report action](valint/report/README.md)
 
 
-# Integrations
+## Notice Support
+Currently we only support Github linux workers.
+Add condition for multi OS workflows.
+```YAML
+- name: Gensbom Image generate bom, upload to scribe
+  id: gensbom_bom_image
+  if: ${{ runner.os == 'Linux' }}
+  uses: scribe-security/actions/gensbom/bom@master
+  with:
+      target: 'mongo-express:1.0.0-alpha.4'
+      verbose: 2
+```
 
+
+# Integrations
 ## Scribe service integration
 Scribe provides a set of services to store,verify and manage the supply chain integrity.
 Following are some integration examples.
