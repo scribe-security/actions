@@ -7,7 +7,7 @@ VERSION=$2
 if [ "$(id --user)" -eq "0" ]; then
     sudocmd=""
 else
-    sudocmd=""
+    sudocmd="sudo"
 fi
 $sudocmd apt --quiet update --assume-yes || true
 $sudocmd apt --quiet install --assume-yes curl
