@@ -88,6 +88,9 @@ Add condition for multi OS workflows.
       verbose: 2
 ```
 
+## .gitignore
+Recommended to add output directory value to your .gitignore file.
+By default add `**/scribe` to your gitignore.
 
 # Integrations
 ## Scribe service integration
