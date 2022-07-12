@@ -43,8 +43,8 @@ runs:
         else
             sudocmd="sudo"
         fi
-        # $sudocmd mkdir -p $XDG_CONFIG_HOME/$TOOL_NAME
-        # $sudocmd chmod 755 $XDG_CONFIG_HOME/$TOOL_NAME
+        $sudocmd mkdir -p $XDG_CONFIG_HOME/$TOOL_NAME
+        $sudocmd chmod 755 $XDG_CONFIG_HOME/$TOOL_NAME
         $sudocmd cp $DEFAULT_CONFIG $XDG_CONFIG_HOME/$TOOL_NAME/$TOOL_NAME.yaml
       shell: bash
 branding:
