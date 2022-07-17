@@ -1,4 +1,4 @@
-output-directory: ./scribe/bomber
+output-directory: ./scribe/gensbom
 attest:
   default: sigstore-github
 bom:

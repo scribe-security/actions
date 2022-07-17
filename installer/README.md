@@ -9,20 +9,20 @@ Installer action allows you to install tools locally and use them directly.
   tool:
     description: 'tool'
     required: false
-    default: 'bomber'
+    default: 'gensbom'
 ```
 
 ## Supported tools
 * valint
-* bomber
+* gensbom
 
 ## Linux support
 * Debian based - (arm64, amd64), https://scribesecuriy.jfrog.io/artifactory/scribe-debian-local.
 
 ### Usage
 ```
-- name: Bomber verify
-  id: bomber_verify
+- name: Gensbom verify
+  id: gensbom_verify
   uses: scribe-security/actions/gensbom/verify@master
   with:
       tool: 'valint'

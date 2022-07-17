@@ -8,7 +8,7 @@ inputs:
   tool:
     description: 'tool'
     required: false
-    default: 'bomber'
+    default: 'gensbom'
 
 runs:
   using: "composite"

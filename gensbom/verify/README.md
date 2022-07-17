@@ -22,7 +22,7 @@ title: Verify
     default: attest-cyclonedx-json
   output-directory:
     description: 'report output directory'
-    default: ./scribe/bomber
+    default: ./scribe/gensbom
   output-file:
     description: 'Output result to file'
   filter-regex:
@@ -31,7 +31,7 @@ title: Verify
   attest-config:
     description: 'Attestation config map'
   attest-name:
-    description: 'Attestation config name (default "bomber")'
+    description: 'Attestation config name (default "gensbom")'
   attest-default:
     description: 'Attestation default config, options=[sigstore sigstore-github x509]'
     default: sigstore-github
@@ -39,8 +39,8 @@ title: Verify
 
 ### Usage
 ```
-- name: Bomber verify
-  id: bomber_verify
+- name: Gensbom verify
+  id: gensbom_verify
   uses: scribe-security/actions/installer@master
   with:
       target: 'busybox:latest'

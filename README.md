@@ -12,10 +12,10 @@ Actions are are wrappers to provided CLI tools.
 * Fs-tracker - TBD
 
 # 🚀  Gensbom actions
-Included GitHub Actions uses the [gensbom](https://github.com/scribe-security/bomber) cli tool. \
+Included GitHub Actions uses the [gensbom](https://github.com/scribe-security/gensbom) cli tool. \
 Actions allow one to both collect sbom evidence for images and directory targets.
 
-Source see [gensbom](https://github.com/scribe-security/bomber), Sbom generator
+Source see [gensbom](https://github.com/scribe-security/gensbom), Sbom generator
 Source see [cocosign](https://github.com/scribe-security/cocosign), attestation manager
 
 ## Bom action
