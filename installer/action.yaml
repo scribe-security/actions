@@ -27,11 +27,11 @@ runs:
         }
 
         TOOLS=${{ inputs.tools }}
+        export SCRIBE_TOOLS=${TOOLS//,/ }
         if [[ "${TOOLS}" == "fs-tracker" ]]; then
-          install_APT ${TOOLS}
+          install_APT ${SCRIBE_TOOLS}
         else
           echo "Installing using install script" ${{ inputs.version }} ${{ inputs.tool }} 
-          export SCRIBE_TOOLS=${TOOLS//,/ }
           export SCRIBE_DEBUG=${DEBUG}
           export SCRIBE_INSTALL_DIR=/usr/local/bin
           curl -sSfL https://raw.githubusercontent.com/scribe-security/misc/master/install.sh | sh
@@ -48,22 +48,25 @@ runs:
       run: |
         #!/bin/bash
         set -x
-        TOOL_NAME=${{ inputs.tool }}
-        DEFAULT_CONFIG="$GITHUB_ACTION_PATH/configs/$TOOL_NAME/$RUNNER_OS.yaml"
-        if [ ! -e "$DEFAULT_CONFIG" ]
-        then
-          echo "$RUNNER_OS Config not supported by installer"
-          exit 0
-        fi
+        TOOLS=${{ inputs.tools }}
+        export SCRIBE_TOOLS=${TOOLS//,/ }
+        for tool in ${SCRIBE_TOOLS}; do
+          DEFAULT_CONFIG="$GITHUB_ACTION_PATH/configs/$tool/$RUNNER_OS.yaml"
+          if [ ! -e "$DEFAULT_CONFIG" ]
+          then
+            echo "$RUNNER_OS Config not supported by installer"
+            exit 0
+          fi
 
-        if [ "$(id --user)" -eq "0" ]; then
-            sudocmd=""
-        else
-            sudocmd="sudo"
-        fi
-        $sudocmd mkdir -p $XDG_CONFIG_HOME/$TOOL_NAME
-        $sudocmd chmod 755 $XDG_CONFIG_HOME/$TOOL_NAME
-        $sudocmd cp $DEFAULT_CONFIG $XDG_CONFIG_HOME/$TOOL_NAME/$TOOL_NAME.yaml
+          if [ "$(id --user)" -eq "0" ]; then
+              sudocmd=""
+          else
+              sudocmd="sudo"
+          fi
+          $sudocmd mkdir -p $XDG_CONFIG_HOME/$tool
+          $sudocmd chmod 755 $XDG_CONFIG_HOME/$tool
+          $sudocmd cp $DEFAULT_CONFIG $XDG_CONFIG_HOME/$tool/$tool.yaml
+        done
       shell: bash
 branding:
   icon: shield
