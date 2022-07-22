@@ -51,11 +51,10 @@ runs:
         set -x
         TOOLS=${{ inputs.tools }}
         export SCRIBE_TOOLS=${TOOLS//,/ }
-        echo "####-1 $TOOLS"
-        echo "####-1-2 $SCRIBE_TOOLS"
         for tool in ${SCRIBE_TOOLS}; do
           DEFAULT_CONFIG="$GITHUB_ACTION_PATH/configs/$tool/$RUNNER_OS.yaml"
           ls -lhR $GITHUB_ACTION_PATH/configs/
+
           if [ ! -e "$DEFAULT_CONFIG" ]
           then
             echo "$RUNNER_OS Config not supported by installer"
