@@ -11,7 +11,6 @@ else
 fi
 $sudocmd apt --quiet update --assume-yes || true
 $sudocmd apt --quiet install --assume-yes curl
-$sudocmd apt --quiet purge --assume-yes $TOOL_NAME || true
 curl --silent --show-error https://scribesecuriy.jfrog.io/artifactory/api/security/keypair/scribe-artifactory/public | $sudocmd apt-key add -
 if [[ ! -z "${ARTIFACTORY_USERNAME}" ]]  && [ ! -z "${ARTIFACTORY_PASSWORD}" ] ; then
 echo "Adding username password"
@@ -28,12 +27,12 @@ echo 'deb  [arch=x86_64]  https://scribesecuriy.jfrog.io/artifactory/scribe-debi
 
 $sudocmd apt update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/scribe.list || true
 
-apt show $TOOL_NAME || true | grep -q scribe 
 
 for tool in ${tools}; do
     tool=$(echo "${tool}" | awk -F: '{print $1}')
     version=$(echo "${tool}" | awk -F: '{print $2}')
-
+    $sudocmd apt --quiet purge --assume-yes $tool || true
+    apt show $tool || true | grep -q scribe 
     if [ $? -eq 0 ] ; then
         if [[ ! -z "${version}" ]] ; then
         $sudocmd apt --quiet install --assume-yes $tool=$version
