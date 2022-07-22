@@ -29,7 +29,7 @@ runs:
         TOOLS=${{ inputs.tools }}
         export SCRIBE_TOOLS=${TOOLS//,/ }
         if [[ "${TOOLS}" == "fs-tracker" ]]; then
-          install_APT ${SCRIBE_TOOLS}
+          install_APT ${TOOLS}
         else
           echo "Installing using install script" ${{ inputs.version }} ${{ inputs.tool }} 
           export SCRIBE_DEBUG=${DEBUG}
