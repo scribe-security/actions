@@ -1,8 +1,8 @@
 #!/bin/bash
 set -x
 
-TOOL_NAME=$1
-VERSION=$2
+tools=$1
+
 
 if [ "$(id --user)" -eq "0" ]; then
     sudocmd=""
@@ -18,7 +18,7 @@ echo "Adding username password"
 echo -e "machine https://scribesecuriy.jfrog.io/\nlogin $ARTIFACTORY_USERNAME\npassword $ARTIFACTORY_PASSWORD" | $sudocmd tee /etc/apt/auth.conf.d/scribe > /dev/null
 fi 
 
-echo -e "Package: $TOOL_NAME\nPin: release n=stable\nPin-Priority: 900" | $sudocmd tee /etc/apt/preferences.d/scribe > /dev/null
+# echo -e "Package: $TOOL_NAME\nPin: release n=stable\nPin-Priority: 900" | $sudocmd tee /etc/apt/preferences.d/scribe > /dev/null
 # Truth is i am not sure why our debian are mapped to x86_64 on artifactory and not the amd64 arch ... 2DO fix this somehow..
 echo 'deb https://scribesecuriy.jfrog.io/artifactory/scribe-debian-local stable non-free'
 echo 'deb https://scribesecuriy.jfrog.io/artifactory/scribe-debian-local stable non-free' | $sudocmd tee /etc/apt/sources.list.d/scribe.list > /dev/null
@@ -26,14 +26,22 @@ echo 'deb https://scribesecuriy.jfrog.io/artifactory/scribe-debian-local stable 
 $sudocmd apt update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/scribe.list || true
 
 apt show $TOOL_NAME || true | grep -q scribe 
-if [ $? -eq 0 ] ; then
-    if [[ ! -z "${VERSION}" ]] ; then
-    $sudocmd apt --quiet install --assume-yes $TOOL_NAME=$VERSION
+
+for tool in ${tools}; do
+    tool=$(echo "${tool}" | awk -F: '{print $1}')
+    version=$(echo "${tool}" | awk -F: '{print $2}')
+
+    if [ $? -eq 0 ] ; then
+        if [[ ! -z "${version}" ]] ; then
+        $sudocmd apt --quiet install --assume-yes $tool=$version
+        else
+        $sudocmd apt --quiet install --assume-yes $tool
+        fi
     else
-    $sudocmd apt --quiet install --assume-yes $TOOL_NAME
+        echo "Scribe $tool could not be found"
+        exit 1
     fi
-else
-    echo "Scribe $TOOL_NAME could not be found"
-    exit 1
-fi
+
+done
+
 

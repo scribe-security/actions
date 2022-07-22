@@ -2,13 +2,10 @@ name: 'tool: installer'
 description: 'Scribe tool installer'
 author: Mikey Strauss
 inputs:
-  version:
-    description: 'specific version'
+  tools:
+    description: 'scribe, tools'
     required: false
-  tool:
-    description: 'tool'
-    required: false
-    default: 'gensbom'
+    default: 'gensbom,valint'
 
 runs:
   using: "composite"
@@ -16,14 +13,32 @@ runs:
     - name: Installing tool
       run: |
         #!/bin/bash
-        echo "Installing" ${{ inputs.version }} ${{ inputs.tool }} 
-        PLATFORM_SCRIPT="$GITHUB_ACTION_PATH/scripts/$RUNNER_OS.sh"
-        if [ ! -e "$PLATFORM_SCRIPT" ]
-        then
-          echo "$RUNNER_OS OS not supported by installer"
-          exit 1
+
+        TOOLS=${{ inputs.tools }}
+        if [ $TOOL -eq "fs-tracker"]; then
+          tool=$(echo "${val}" | awk -F: '{print $1}')
+          version=$(echo "${val}" | awk -F: '{print $2}')
+
+          echo "Installing using APT" ${{ inputs.version }} ${{ inputs.tool }} 
+          PLATFORM_SCRIPT="$GITHUB_ACTION_PATH/scripts/$RUNNER_OS.sh"
+          if [ ! -e "$PLATFORM_SCRIPT" ]
+          then
+            echo "$RUNNER_OS OS not supported by installer"
+            exit 1
+          fi
+          . "$PLATFORM_SCRIPT" ${{ inputs.version }} ${{ inputs.tool }} 
+        else
+          echo "Installing using install script" ${{ inputs.version }} ${{ inputs.tool }} 
+          export SCRIBE_TOOLS=${TOOLS//,/ }
+          export SCRIBE_DEBUG=${DEBUG}
+          export SCRIBE_INSTALL_DIR=/usr/local/bin
+          curl -sSfL https://raw.githubusercontent.com/scribe-security/misc/master/install.sh | sh
+          if [ $? -eq 0 ] ; then
+              echo "Installer success"
+          else 
+              echo "Installer failed"
+          fi
         fi
-        . "$PLATFORM_SCRIPT" ${{ inputs.version }} ${{ inputs.tool }} 
       shell: bash
 
     - name: Installing tool default config
