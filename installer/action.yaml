@@ -27,9 +27,7 @@ runs:
         }
 
         TOOLS=${{ inputs.tools }}
-        echo "#### $TOOLS"
         export SCRIBE_TOOLS=${TOOLS//,/ }
-        echo "####2 $SCRIBE_TOOLS"
 
         if [[ "${TOOLS}" == "fs-tracker" ]]; then
           install_APT ${TOOLS}
@@ -57,9 +55,7 @@ runs:
         echo "####-1-2 $SCRIBE_TOOLS"
         for tool in ${SCRIBE_TOOLS}; do
           DEFAULT_CONFIG="$GITHUB_ACTION_PATH/configs/$tool/$RUNNER_OS.yaml"
-          ls -lh $GITHUB_ACTION_PATH/configs/
-          ls -lh $GITHUB_ACTION_PATH/configs/$tool
-
+          ls -lhR $GITHUB_ACTION_PATH/configs/
           if [ ! -e "$DEFAULT_CONFIG" ]
           then
             echo "$RUNNER_OS Config not supported by installer"
