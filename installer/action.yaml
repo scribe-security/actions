@@ -3,7 +3,7 @@ description: 'Scribe tool installer'
 author: Mikey Strauss
 inputs:
   tools:
-    description: 'scribe, tools'
+    description: 'Select scribe tools <tool:version>'
     required: false
     default: 'gensbom,valint'
 

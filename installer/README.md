@@ -3,28 +3,23 @@ Installer action allows you to install tools locally and use them directly.
 
 ### Input arguments
 ```yaml
-    version:
-    description: 'specific version'
+  tools:
+    description: 'Select scribe tools <tool:version>'
     required: false
-  tool:
-    description: 'tool'
-    required: false
-    default: 'gensbom'
+    default: 'gensbom,valint'
 ```
 
 ## Supported tools
 * valint
 * gensbom
 
-## Linux support
-* Debian based - (arm64, amd64), https://scribesecuriy.jfrog.io/artifactory/scribe-debian-local.
+## OS - Arch support
+* Linux - arm64, amd64.
 
 ### Usage
 ```
-- name: Gensbom verify
-  id: gensbom_verify
-  uses: scribe-security/actions/gensbom/verify@master
-  with:
-      tool: 'valint'
+- name: Scribe tool install
+  id: scribe_install
+  uses: scribe-security/actions/installer@master
 ```
 
