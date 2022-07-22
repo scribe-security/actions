@@ -27,7 +27,7 @@ runs:
         }
 
         TOOLS=${{ inputs.tools }}
-        if [ "${TOOLS}" -eq "fs-tracker" ]; then
+        if [[ "${TOOLS}" == "fs-tracker" ]]; then
           install_APT ${TOOLS}
         else
           echo "Installing using install script" ${{ inputs.version }} ${{ inputs.tool }} 
