@@ -14,19 +14,21 @@ runs:
       run: |
         #!/bin/bash
 
-        TOOLS=${{ inputs.tools }}
-        if [ "${TOOL}" -eq "fs-tracker" ]; then
-          tool=$(echo "${val}" | awk -F: '{print $1}')
-          version=$(echo "${val}" | awk -F: '{print $2}')
-
-          echo "Installing using APT" ${{ inputs.version }} ${{ inputs.tool }} 
+        function install_APT() {
+          TOOLS=$1
+          echo "Installing using APT" ${TOOLS}
           PLATFORM_SCRIPT="$GITHUB_ACTION_PATH/scripts/$RUNNER_OS.sh"
           if [ ! -e "$PLATFORM_SCRIPT" ]
           then
             echo "$RUNNER_OS OS not supported by installer"
             exit 1
           fi
-          . "$PLATFORM_SCRIPT" ${{ inputs.version }} ${{ inputs.tool }} 
+          . "$PLATFORM_SCRIPT" ${TOOLS} 
+        }
+
+        TOOLS=${{ inputs.tools }}
+        if [ "${TOOLS}" -eq "fs-tracker" ]; then
+          install_APT ${TOOLS}
         else
           echo "Installing using install script" ${{ inputs.version }} ${{ inputs.tool }} 
           export SCRIBE_TOOLS=${TOOLS//,/ }
@@ -37,6 +39,7 @@ runs:
               echo "Installer success"
           else 
               echo "Installer failed"
+              install_APT ${TOOLS}
           fi
         fi
       shell: bash
