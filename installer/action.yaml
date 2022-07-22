@@ -15,7 +15,7 @@ runs:
         #!/bin/bash
 
         TOOLS=${{ inputs.tools }}
-        if [ $TOOL -eq "fs-tracker"]; then
+        if [ "${TOOL}" -eq "fs-tracker" ]; then
           tool=$(echo "${val}" | awk -F: '{print $1}')
           version=$(echo "${val}" | awk -F: '{print $2}')
 
