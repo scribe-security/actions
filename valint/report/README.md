@@ -4,7 +4,7 @@
 ```yaml
   verbose:
     description: 'Increase verbosity (-v = info, -vv = debug)'
-    default: 0
+    default: 1
   config:
     description: 'Application config file'
   output-directory:

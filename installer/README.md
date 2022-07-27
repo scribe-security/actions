@@ -23,3 +23,12 @@ Installer action allows you to install tools locally and use them directly.
   uses: scribe-security/actions/installer@master
 ```
 
+### Select tools
+```YAML
+- name: Gensbom install
+  id: gensbom_install
+  uses: scribe-security/actions/installer@master
+  with:
+    tools: gensbom
+```
+
