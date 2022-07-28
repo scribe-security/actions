@@ -31,6 +31,8 @@ inputs:
     description: 'Custom env'
   filter-regex:
     description: 'Filter out files by regex'
+  filter-purl:
+    description: 'Filter out purls by regex'
   collect-regex:
     description: 'Collect files content by regex'
   force:
@@ -72,6 +74,7 @@ runs:
     - ${{ inputs.label && '--label=' }}${{ inputs.label }}
     - ${{ inputs.env && '--env=' }}${{ inputs.env }}
     - ${{ inputs.filter-regex && '--filter-regex=' }}${{ inputs.filter-regex }}
+    - ${{ inputs.filter-purl && '--filter-purl=' }}${{ inputs.filter-purl }}
     - ${{ inputs.collect-regex && '--collect-regex=' }}${{ inputs.collect-regex }}
     - --context-type=github
     - ${{ inputs.output-directory && '--output-directory=' }}${{ inputs.output-directory }}
