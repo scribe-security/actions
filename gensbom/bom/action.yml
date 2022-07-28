@@ -33,8 +33,8 @@ inputs:
     description: 'Filter out files by regex'
   filter-purl:
     description: 'Filter out purls by regex'
-  collect-regex:
-    description: 'Collect files content by regex'
+  attach-regex:
+    description: 'Attach files content by regex'
   force:
     description: 'Force overwrite cache'
     default: false
@@ -75,7 +75,7 @@ runs:
     - ${{ inputs.env && '--env=' }}${{ inputs.env }}
     - ${{ inputs.filter-regex && '--filter-regex=' }}${{ inputs.filter-regex }}
     - ${{ inputs.filter-purl && '--filter-purl=' }}${{ inputs.filter-purl }}
-    - ${{ inputs.collect-regex && '--collect-regex=' }}${{ inputs.collect-regex }}
+    - ${{ inputs.attach-regex && '--attach-regex=' }}${{ inputs.attach-regex }}
     - --context-type=github
     - ${{ inputs.output-directory && '--output-directory=' }}${{ inputs.output-directory }}
     - ${{ inputs.force && '--force=' }}${{ inputs.force }}
