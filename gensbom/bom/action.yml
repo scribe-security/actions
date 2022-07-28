@@ -60,6 +60,8 @@ inputs:
     description: 'Scribe auth audience' 
   context-dir:
     description: 'Context dir' 
+  components :
+    description: 'Select sbom components groups, options=[metadata layers packages files dep] (default [metadata,layers,packages,files,dep])'
 
 runs:
   using: docker
@@ -89,6 +91,7 @@ runs:
     - ${{ inputs.scribe-loginurl && '--scribe.loginurl=' }}${{ inputs.scribe-loginurl }}
     - ${{ inputs.scribe-audience && '--scribe.auth0.audience=' }}${{ inputs.scribe-audience }}
     - ${{ inputs.context-dir && '--scribe.context-dir=' }}${{ inputs.context-dir }}
+    - ${{ inputs.components && '--components=' }}${{ inputs.components }}
 
 
 branding:
