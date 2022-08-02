@@ -23,8 +23,8 @@ inputs:
     default: ./scribe/gensbom
   output-file:
     description: 'Output result to file'
-  name:
-    description: 'Custom/project name'
+  product-key:
+    description: 'Custom/project product key'
   label:
     description: 'Custom label'
   env:
@@ -72,7 +72,7 @@ runs:
     - --verbose=${{ inputs.verbose }}
     - ${{ inputs.config && '--config=' }}${{ inputs.config }}
     - ${{ inputs.format && '--format=' }}${{ inputs.format }}
-    - ${{ inputs.name && '--name=' }}${{ inputs.name }}
+    - ${{ inputs.product-key && '--product-key=' }}${{ inputs.product-key }}
     - ${{ inputs.label && '--label=' }}${{ inputs.label }}
     - ${{ inputs.env && '--env=' }}${{ inputs.env }}
     - ${{ inputs.filter-regex && '--filter-regex=' }}${{ inputs.filter-regex }}
