@@ -7,7 +7,7 @@ outputs:
 inputs:
   type:
     description: 'Target source type options=[docker,docker-archive, oci-archive, dir, registry]'
-    default: registry
+    # default: registry
   target:
     description: 'Target object name format=[<image:tag>, <dir_path>]'
     required: true
