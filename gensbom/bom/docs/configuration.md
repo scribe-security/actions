@@ -14,9 +14,9 @@ output-directory: $XDG_CACHE_HOME/gensbom
 output-file: ""
 scribe:
   auth0:
-    loginurl: https://scribesecurity-production.us.auth0.com
+    login-url: https://scribesecurity-production.us.auth0.com
     clientid: '*******'
-    clientsecret: '*******'
+    client-secret: '*******'
     audience: api.production.scribesecurity.com
     grant_type: client_credentials
     enable: true
