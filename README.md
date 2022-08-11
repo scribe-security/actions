@@ -292,6 +292,22 @@ Create SBOM from remote `busybox:latest` image, skip if found by cache.
 </details>
 
 <details>
+  <summary>  Docker built image </summary>
+
+Create SBOM for image built by local docker `image_name:latest` image, overwrite cache.
+
+```YAML
+- name: Generate cyclonedx json SBOM
+  uses: scribe-security/actions/gensbom/bom@master
+  with:
+    type: docker
+    target: 'image_name:latest'
+    format: json
+    force: true
+``` 
+</details>
+
+<details>
   <summary>  Private registry image </summary>
 
 Custom private registry, skip cache (using `Force`), output verbose (debug level) log output.
