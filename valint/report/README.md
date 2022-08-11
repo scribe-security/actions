@@ -17,11 +17,11 @@
     default: false
   scribe-clientid:
     description: 'Scribe client id' 
-  scribe-clientsecret:
+  scribe-client-secret:
     description: 'Scribe access token' 
   scribe-url:
     description: 'Scribe url' 
-  scribe-loginurl:
+  scribe-login-url:
     description: 'Scribe auth login url' 
   scribe-audience:
     description: 'Scribe auth audience' 
@@ -48,5 +48,5 @@
       verbose: 2
       scribe-enable: true
       scribe-clientid: ${{ inputs.clientid }}
-      scribe-clientsecret: ${{ inputs.clientsecret }}
+      scribe-client-secret: ${{ inputs.client-secret }}
 ```

@@ -13,7 +13,7 @@ inputs:
     default: 1
   config:
     description: 'Application config file'
-  inputformat:
+  input-format:
     description: 'Sbom input formatter, options=[attest-cyclonedx-json] (default "attest-cyclonedx-json")'
     default: attest-cyclonedx-json
   output-directory:
@@ -42,7 +42,7 @@ runs:
     - ${{ inputs.config && '--config=' }}${{ inputs.config }}
     - ${{ inputs.output-directory && '--output-directory=' }}${{ inputs.output-directory }}
     # - --format=${{ inputs.format }}
-    - --inputformat=${{ inputs.inputformat }}
+    - --input-format=${{ inputs.input-format }}
     - --context-type=github
     - ${{ inputs.filter-regex && '--filter-regex=' }}${{ inputs.filter-regex }}
     - ${{ inputs.attest-config && '--attest.config=' }}${{ inputs.attest-config }}

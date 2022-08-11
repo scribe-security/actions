@@ -20,11 +20,11 @@ inputs:
     default: false
   scribe-clientid:
     description: 'Scribe client id' 
-  scribe-clientsecret:
+  scribe-client-secret:
     description: 'Scribe access token' 
   scribe-url:
     description: 'Scribe url' 
-  scribe-loginurl:
+  scribe-login-url:
     description: 'Scribe auth login url' 
   scribe-audience:
     description: 'Scribe auth audience' 
@@ -48,9 +48,9 @@ runs:
     - ${{ inputs.scribe-enable && '--scribe.enable=' }}${{ inputs.scribe-enable }}
     - ${{ inputs.output-file && '--output-file=' }}${{ inputs.output-file }}
     - ${{ inputs.scribe-clientid && '--scribe.clientid=' }}${{ inputs.scribe-clientid }}
-    - ${{ inputs.scribe-clientsecret && '--scribe.clientsecret=' }}${{ inputs.scribe-clientsecret }}
+    - ${{ inputs.scribe-client-secret && '--scribe.client-secret=' }}${{ inputs.scribe-client-secret }}
     - ${{ inputs.scribe-url && '--scribe.url=' }}${{ inputs.scribe-url }}
-    - ${{ inputs.scribe-loginurl && '--scribe.loginurl=' }}${{ inputs.scribe-loginurl }}
+    - ${{ inputs.scribe-login-url && '--scribe.login-url=' }}${{ inputs.scribe-login-url }}
     - ${{ inputs.scribe-audience && '--scribe.auth.audience=' }}${{ inputs.scribe-audience }}
     - ${{ inputs.context-dir && '--context-dir=' }}${{ inputs.context-dir }}
     - ${{ inputs.section && '--section=' }}${{ inputs.section }}

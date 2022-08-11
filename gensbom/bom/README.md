@@ -52,7 +52,7 @@ title: Bom
     default: false
   scribe-clientid:
     description: 'Scribe client id' 
-  scribe-clientsecret:
+  scribe-client-secret:
     description: 'Scribe access token' 
   scribe-url:
     description: 'Scribe url' 
