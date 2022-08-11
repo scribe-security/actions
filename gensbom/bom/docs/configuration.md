@@ -13,15 +13,16 @@ Configuration format and default values.
 output-directory: $XDG_CACHE_HOME/gensbom
 output-file: ""
 scribe:
-  auth0:
+  auth:
     login-url: https://scribesecurity-production.us.auth0.com
-    clientid: '*******'
+    client-id: '*******'
     client-secret: '*******'
     audience: api.production.scribesecurity.com
     grant_type: client_credentials
     enable: true
-  url: https://api.production.scribesecurity.com
-  enable: true
+  service:
+    url: https://api.production.scribesecurity.com
+    enable: true
 attest:
   config: ""
   name: Gensbom

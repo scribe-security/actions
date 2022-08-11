@@ -89,7 +89,7 @@ runs:
     - ${{ inputs.scribe-client-secret && '--scribe.client-secret=' }}${{ inputs.scribe-client-secret }}
     - ${{ inputs.scribe-url && '--scribe.url=' }}${{ inputs.scribe-url }}
     - ${{ inputs.scribe-login-url && '--scribe.login-url=' }}${{ inputs.scribe-login-url }}
-    - ${{ inputs.scribe-audience && '--scribe.auth0.audience=' }}${{ inputs.scribe-audience }}
+    - ${{ inputs.scribe-audience && '--scribe.auth.audience=' }}${{ inputs.scribe-audience }}
     - ${{ inputs.context-dir && '--scribe.context-dir=' }}${{ inputs.context-dir }}
     - ${{ inputs.components && '--components=' }}${{ inputs.components }}
 

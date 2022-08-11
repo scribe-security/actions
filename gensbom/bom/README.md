@@ -77,17 +77,16 @@ title: Bom
 
 ## Configuration
 Use default configuration path `.gensbom.yaml`, or
-provide custom path using `config` input argument.
+provide a custom path using `config` input argument.
+See detailed [documentation -](docs/configuration.md) config](docs/configuration.md)
 
-See detail [documentation - config](docs/configuration.md)
-
-You may add a `.cocosign.yaml` file at your repository or pass with `--config` \
+You may add a `.cocosign.yaml` file to your repository or pass it with `--`config` \
 for more [Cocosign configuration](https://github.com/scribe-security/cocosign)
 
 
 ## Attestations 
-Attestations sboms allow you to sign and verify your sbom targets. \
-Attestations allow you to connect PKI based identities to your evidence and policy management. 
+Attestations SBOMs allow you to sign and verify your SBOM targets. \
+Attestations allow you to connect PKI-based identities to your evidence and policy management. 
 
 Use default configuration path `.cocosign.yaml`, or
 provide custom path using `attest-config` input argument.
