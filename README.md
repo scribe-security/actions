@@ -1,6 +1,6 @@
 ---
 title: GitHub-actions
-author: mikey strauss - Scribe
+author: Mikey Strauss - Scribe
 date: June 30, 2022
 geometry: margin=2cm
 ---
@@ -12,7 +12,7 @@ Actions are wrappers to provide CLI tools.
 * Fs-tracker - TBD
 
 # 🚀  GenSBOM actions
-Included GitHub Actions uses the [genSBOM](https://GitHub.com/scribe-security/genSBOM) cli tool. \
+Included GitHub Actions uses the [genSBOM](https://GitHub.com/scribe-security/genSBOM) CLI tool. \
 Actions allow one to both collect SBOM evidence for images and directory targets.
 
 Source see [genSBOM](https://GitHub.com/scribe-security/genSBOM), SBOM generator
@@ -51,7 +51,7 @@ See details [GenSBOM - verify action](genSBOM/verify/README.md)
 You can use the `installer` action to install any scribe tool locally allowing full access to all the CLI options from a terminal interface. \
 The command allows users to utilize tools in a non-containerized environment. \
 
-Install tool locally if you want to:
+Install the tool locally if you want to:
 - Generate/verify evidence (SBOMS) from docker daemon.
 - Generate/sign local directories (not mapped to the working dir)
 - Generate evidence for a global cache directory
