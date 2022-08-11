@@ -1,12 +1,5 @@
 output-directory: ./scribe/gensbom
 attest:
   default: sigstore-github
-bom:
-  context:
-    context-type: github
-verify:
-  context:
-    context-type: github
-sign:
-  context:
-    context-type: github
+context:
+  context-type: github
