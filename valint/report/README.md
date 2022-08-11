@@ -15,7 +15,7 @@
   scribe-enable:
     description: 'Enable scribe client'
     default: false
-  scribe-clientid:
+  scribe-client-id:
     description: 'Scribe client id' 
   scribe-client-secret:
     description: 'Scribe access token' 
@@ -47,6 +47,6 @@
   with:
       verbose: 2
       scribe-enable: true
-      scribe-clientid: ${{ inputs.clientid }}
+      scribe-client-id: ${{ inputs.client-id }}
       scribe-client-secret: ${{ inputs.client-secret }}
 ```

@@ -50,7 +50,7 @@ title: Bom
   scribe-enable:
     description: 'Enable scribe client'
     default: false
-  scribe-clientid:
+  scribe-client-id:
     description: 'Scribe client id' 
   scribe-client-secret:
     description: 'Scribe access token' 

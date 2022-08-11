@@ -136,7 +136,7 @@ jobs:
            target: 'mongo-express-scm'
            verbose: 2
            scribe-enable: true
-           scribe-clientid: ${{ secrets.clientid }}
+           scribe-client-id: ${{ secrets.client-id }}
            scribe-client-secret: ${{ secrets.client-secret }}
 
       - name: Build and push remote
@@ -153,7 +153,7 @@ jobs:
            target: 'mongo-express:1.0.0-alpha.4'
            verbose: 2
            scribe-enable: true
-           scribe-clientid: ${{ secrets.clientid }}
+           scribe-client-id: ${{ secrets.client-id }}
            scribe-client-secret: ${{ secrets.client-secret }}
 
       - name: Valint - download report
@@ -162,7 +162,7 @@ jobs:
         with:
            verbose: 2
            scribe-enable: true
-           scribe-clientid: ${{ secrets.clientid }}
+           scribe-client-id: ${{ secrets.client-id }}
            scribe-client-secret: ${{ secrets.client-secret }}
 
       - uses: actions/upload-artifact@v2
@@ -218,7 +218,7 @@ jobs:
            target: 'mongo-express:1.0.0-alpha.4'
            verbose: 2
            scribe-enable: true
-           scribe-clientid: ${{ secrets.clientid }}
+           scribe-client-id: ${{ secrets.client-id }}
            scribe-client-secret: ${{ secrets.client-secret }}
 
       - name: Valint - download report
@@ -227,7 +227,7 @@ jobs:
         with:
            verbose: 2
            scribe-enable: true
-           scribe-clientid: ${{ secrets.clientid }}
+           scribe-client-id: ${{ secrets.client-id }}
            scribe-client-secret: ${{ secrets.client-secret }}
 
       - uses: actions/upload-artifact@v2
@@ -253,7 +253,7 @@ Valint downloading integrity report from scribe service
     with:
         verbose: 2
         scribe-enable: true
-        scribe-clientid: ${{ inputs.clientid }}
+        scribe-client-id: ${{ inputs.client-id }}
         scribe-client-secret: ${{ inputs.client-secret }}
 ```
 </details>
@@ -270,7 +270,7 @@ Valint downloading integrity report from scribe service
     with:
         verbose: 2
         scribe-enable: true
-        scribe-clientid: ${{ inputs.clientid }}
+        scribe-client-id: ${{ inputs.client-id }}
         scribe-client-secret: ${{ inputs.client-secret }}
         section: packages
 ```
@@ -582,7 +582,7 @@ Install Valint as a tool
 - name: valint run
   run: |
     valint --version
-    valint report --scribe.clientid $SCRIBE_CLIENT_ID $SCRIBE_CLIENT_SECRET
+    valint report --scribe.client-id $SCRIBE_CLIENT_ID $SCRIBE_CLIENT_SECRET
 ``` 
 </details>
 
@@ -599,7 +599,7 @@ Download integrity report.
       id: download_report
       uses: scribe-security/actions/valint/report@master
       with:
-          scribe-clientid: ${{ inputs.clientid }}
+          scribe-client-id: ${{ inputs.client-id }}
           scribe-client-secret: ${{ inputs.client-secret }}
 ``` 
 Default output will be set to ~/.cache/valint/ subdirectory (Use `output-directory` argument to overwrite location).
@@ -618,7 +618,7 @@ Download report for CI run and save the output to a local file.
       with:
           verbose: 3
           scribe-enable: true
-          scribe-clientid: ${{ inputs.clientid }}
+          scribe-client-id: ${{ inputs.client-id }}
           scribe-client-secret: ${{ inputs.client-secret }}
           output-file: "./result_report.json"
 ``` 
