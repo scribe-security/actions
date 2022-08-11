@@ -4,44 +4,41 @@ Configuration search paths:
 - .gensbom.yaml
 - .gensbom/gensbom.yaml
 - ~/.gensbom.yaml
-- <k>/gensbom/gensbom.yaml
+- \<k\>/gensbom/gensbom.yaml
 
 For a custom configuration location use `--config` flag with any command.
 
 Configuration format and default values.
 ```yaml
 output-directory: $XDG_CACHE_HOME/gensbom
-output-file: ""
 scribe:
   auth:
     login-url: https://scribesecurity-production.us.auth0.com
-    client-id: '*******'
-    client-secret: '*******'
+    client-id: '******'
+    client-secret: '******'
+    grant-type: client_credentials
+    enable: true
     audience: api.production.scribesecurity.com
-    grant_type: client_credentials
-    enable: true
-  service:
-    url: https://api.production.scribesecurity.com
-    enable: true
+  url: https://api.production.scribesecurity.com
+  enable: false
+context:
+  context-type: local
 attest:
   config: ""
-  name: Gensbom
+  name: ""
   default: sigstore
-filter-regex:
-- .*\.pyc
-- .*\.git/.*
-filter-purl: []
+filter:
+  filter-regex:
+  - .*\.pyc
+  - .*\.git/.*
+  filter-purl: []
 bom:
   normalizers:
     packagejson:
       enable: true
-  formats:
+  format:
   - cyclonedx-json
   env: []
-  context:
-    name: ""
-    labels: []
-    context-type: local
   force: false
   components:
   - metadata
@@ -51,18 +48,14 @@ bom:
   - dep
   attach-regex: []
 find:
-  format: ""
+  format: cyclonedx-json
   all: false
 verify:
-  context:
-    name: ""
-    context-type: ""
+  input-format: attest-cyclonedx-json
 sign:
   format: attest-cyclonedx-json
-  inputformat: cyclonedx-json
+  input-format: cyclonedx-json
   force: false
-  context:
-    name: ""
 log:
   structured: false
   level: ""
@@ -71,4 +64,5 @@ dev:
   profile-cpu: false
   profile-mem: false
   backwards: false
+  insecure: true
 ```
