@@ -350,6 +350,7 @@ Data will be included in the signed payload when the output is an attestation.
 Using action `output_path` you can access the generated SBOM and store it as an artifact.
 ```YAML
 - name: Generate cyclonedx json SBOM
+  id: gensbom_json
   uses: scribe-security/actions/gensbom/bom@master
   with:
     target: 'busybox:latest'
@@ -368,6 +369,7 @@ Using action `output_path` you can access the generated SBOM and store it as an 
 
 ```YAML
 - name: Generate SLSA provenance statement
+  id: gensbom_slsa_statement
   uses: scribe-security/actions/gensbom/bom@master
   with:
     target: 'busybox:latest'
@@ -376,7 +378,7 @@ Using action `output_path` you can access the generated SBOM and store it as an 
 - uses: actions/upload-artifact@v2
   with:
     name: scribe-evidence
-    path: ${{ steps.gensbom_json.outputs.OUTPUT_PATH }}
+    path: ${{ steps.gensbom_slsa_statement.outputs.OUTPUT_PATH }}
 ``` 
 </details>
 
