@@ -367,7 +367,7 @@ Using action `output_path` you can access the generated SBOM and store it as an 
 Using action `output_path` you can access the generated SBOM and store it as an artifact.
 
 ```YAML
-- name: Generate cyclonedx json SBOM
+- name: Generate SLSA provenance statement
   uses: scribe-security/actions/gensbom/bom@master
   with:
     target: 'busybox:latest'
