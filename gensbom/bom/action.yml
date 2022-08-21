@@ -17,7 +17,7 @@ inputs:
   config:
     description: 'Application config file'
   format:
-    description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]'
+    description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json predicate-cyclonedx-json attest-slsa statement-slsa predicate-slsa]'
   output-directory:
     description: 'Report output directory'
     default: ./scribe/gensbom

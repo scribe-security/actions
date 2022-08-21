@@ -363,6 +363,24 @@ Using action `output_path` you can access the generated SBOM and store it as an 
 </details>
 
 <details>
+  <summary> Save SLSA provenance statement as artifact </summary>
+Using action `output_path` you can access the generated SBOM and store it as an artifact.
+
+```YAML
+- name: Generate cyclonedx json SBOM
+  uses: scribe-security/actions/gensbom/bom@master
+  with:
+    target: 'busybox:latest'
+    format: statement-slsa
+
+- uses: actions/upload-artifact@v2
+  with:
+    name: scribe-evidence
+    path: ${{ steps.genSBOM_json.outputs.OUTPUT_PATH }}
+``` 
+</details>
+
+<details>
   <summary> Docker archive image </summary>
 
 Create SBOM from local `docker save ...` output.
@@ -427,13 +445,13 @@ Note directory must be mapped to working dir for actions to access (containerize
 </details>
 
 <details>
-  <summary> Attest target </summary>
+  <summary> Attest target (BOM) </summary>
 
 Create and sign SBOM targets, skip if found signed SBOM by the cache. \
 Targets: `registry`, `docker-archive`, `oci-archive`, `dir`.
 Note: Default attestation config **Required** `id-token` permission access. \
-Note: `docker` in target `type` is not accessible because it requires docker daemon (containerized actions)
 Default attestation config: `sigstore-config` - GitHub workload identity and Sigstore (Fulcio, Rekor).
+
 
 ```YAML
 job_example:
@@ -447,15 +465,37 @@ job_example:
         target: 'busybox:latest'
         format: attest
 ``` 
-
 </details>
 
 <details>
-  <summary> Verify target </summary>
+  <summary> Attest target (SLSA) </summary>
+
+Create and sign SBOM targets, skip if found signed SBOM by the cache. \
+Targets: `registry`, `docker-archive`, `oci-archive`, `dir`.
+Note: Default attestation config **Required** `id-token` permission access. \
+Default attestation config: `sigstore-config` - GitHub workload identity and Sigstore (Fulcio, Rekor).
+
+```YAML
+job_example:
+  runs-on: ubuntu-latest
+  permissions:
+    id-token: write
+  steps:
+    - name: gensbom attest
+    uses: scribe-security/actions/gensbom/bom@master
+    with:
+        target: 'busybox:latest'
+        format: attest-slsa
+``` 
+</details>
+
+<details>
+  <summary> Verify target  (BOM,SLSA) </summary>
 
 Verify targets against a signed attestation. \
 Note: `docker` in target `type` field (is not accessible because it requires docker daemon (containerized actions) \
 Default attestation config: `sigstore-config` - sigstore (Fulcio, Rekor).
+Gensbom will look for both a bom or slsa attestation to verify against
 
 ```YAML
 - name: gensbom verify
@@ -467,7 +507,7 @@ Default attestation config: `sigstore-config` - sigstore (Fulcio, Rekor).
 </details>
 
 <details>
-  <summary> Attest and verify image </summary>
+  <summary> Attest and verify image  </summary>
 
 Full job example of a image signing and verifying flow.
 

@@ -19,7 +19,7 @@ title: Bom
   config:
     description: 'Application config file'
   format:
-    description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json]'
+    description: 'Sbom formatter, options=[cyclonedx-json cyclonedx-xml attest-cyclonedx-json statement-cyclonedx-json predicate-cyclonedx-json attest-slsa statement-slsa predicate-slsa]'
     default: cyclonedxjson
   output-directory:
     description: 'Report output directory'
@@ -85,8 +85,13 @@ for more [Cocosign configuration](https://github.com/scribe-security/cocosign)
 
 
 ## Attestations 
-Attestations SBOMs allow you to sign and verify your SBOM targets. \
+Attestations SBOMs allows you to sign and verify your SBOM targets. \
 Attestations allow you to connect PKI-based identities to your evidence and policy management. 
+Supported outputs:
+- In-toto statements - cyclonedx BOM, SLSA Provenance
+- In-toto predicate - cyclonedx, BOM, SLSA Provenance
+- In-toto attestations -cyclonedx, BOM, SLSA Provenance
+
 
 Use default configuration path `.cocosign.yaml`, or
 provide custom path using `attest-config` input argument.
