@@ -7,11 +7,11 @@ geometry: margin=2cm
 # Scribe GitHub actions 🛸
 Scribe offers GitHub actions for embedding evidence collecting and integrity verification to your workflows. \
 Actions are wrappers to provide CLI tools.
-* GenSBOM - GitHub Action for SBOM Generation (Scribe) 
+* gensbom - GitHub Action for SBOM Generation (Scribe) 
 * Valint - validate supply chain integrity tool
 * Fs-tracker - TBD
 
-# 🚀  GenSBOM actions
+# 🚀  gensbom actions
 Included GitHub Actions uses the [gensbom](https://GitHub.com/scribe-security/gensbom) CLI tool. \
 Actions allow one to both collect SBOM evidence for images and directory targets.
 
@@ -32,7 +32,7 @@ The command allows users to create and upload SBOMs.
 - Add custom labels, envs to SBOM and attestations
 
 
-See details [GenSBOM - bom action](gensbom/bom/README.md)
+See details [gensbom - bom action](gensbom/bom/README.md)
 
 ## Verify action
 The action invokes a containerized `gensbom` sub-command `verify`.
@@ -45,7 +45,7 @@ The command allows users to verify an image via a signed attestation (In-toto).
 - Verify the trust of an image (local or remote) (see example below).
 - Verify the trust of a local directory (see example below).
 
-See details [GenSBOM - verify action](gensbom/verify/README.md)
+See details [gensbom - verify action](gensbom/verify/README.md)
 
 ## Tool installer action
 You can use the `installer` action to install any scribe tool locally allowing full access to all the CLI options from a terminal interface. \
@@ -79,8 +79,8 @@ See details [Valint - report action](valint/report/README.md)
 Currently, we only support GitHub Linux workers.
 Add condition for multi-OS workflows.
 ```YAML
-- name: GenSBOM Image generate bom, upload to scribe
-  id: genSBOM_bom_image
+- name: gensbom Image generate bom, upload to scribe
+  id: gensbom_bom_image
   if: ${{ runner.os == 'Linux' }}
   uses: scribe-security/actions/gensbom/bom@master
   with:
@@ -128,8 +128,8 @@ jobs:
           ref: refs/tags/v1.0.0-alpha.4
           path: mongo-express-scm
 
-      - name: GenSBOM Scm generate bom, upload to scribe
-        id: genSBOM_bom_scm
+      - name: gensbom Scm generate bom, upload to scribe
+        id: gensbom_bom_scm
         uses: scribe-security/actions/gensbom/bom@master
         with:
            type: dir
@@ -146,8 +146,8 @@ jobs:
           push: true
           tags: mongo-express:1.0.0-alpha.4
 
-      - name: GenSBOM Image generate bom, upload to scribe
-        id: genSBOM_bom_image
+      - name: gensbom Image generate bom, upload to scribe
+        id: gensbom_bom_image
         uses: scribe-security/actions/gensbom/bom@master
         with:
            target: 'mongo-express:1.0.0-alpha.4'
@@ -169,8 +169,8 @@ jobs:
         with:
           name: scribe-reports
           path: |
-            ${{ steps.genSBOM_bom_scm.outputs.OUTPUT_PATH }}
-            ${{ steps.genSBOM_bom_image.outputs.OUTPUT_PATH }}
+            ${{ steps.gensbom_bom_scm.outputs.OUTPUT_PATH }}
+            ${{ steps.gensbom_bom_image.outputs.OUTPUT_PATH }}
             ${{ steps.valint_report.outputs.OUTPUT_PATH }}
 ```
 </details>
@@ -211,8 +211,8 @@ jobs:
           push: true
           tags: mongo-express:1.0.0-alpha.4
 
-      - name: GenSBOM Image generate bom, upload to scribe
-        id: genSBOM_bom_image
+      - name: gensbom Image generate bom, upload to scribe
+        id: gensbom_bom_image
         uses: scribe-security/actions/gensbom/bom@master
         with:
            target: 'mongo-express:1.0.0-alpha.4'
@@ -234,8 +234,8 @@ jobs:
         with:
           name: scribe-reports
           path: |
-            ${{ steps.genSBOM_bom_scm.outputs.OUTPUT_PATH }}
-            ${{ steps.genSBOM_bom_image.outputs.OUTPUT_PATH }}
+            ${{ steps.gensbom_bom_scm.outputs.OUTPUT_PATH }}
+            ${{ steps.gensbom_bom_image.outputs.OUTPUT_PATH }}
             ${{ steps.valint_report.outputs.OUTPUT_PATH }}
 ```
 </details>
@@ -276,7 +276,7 @@ Valint downloading integrity report from scribe service
 ```
 </details>
 
-## GenSBOM integration
+## gensbom integration
 <details>
   <summary>  Public registry image </summary>
 
@@ -328,7 +328,7 @@ Custom metadata added to SBOM
 Data will be included in the signed payload when the output is an attestation.
 ```YAML
 - name: Generate cyclonedx json SBOM - add metadata - labels, envs, name
-  id: genSBOM_labels
+  id: gensbom_labels
   uses: scribe-security/actions/gensbom/bom@master
   with:
       target: 'busybox:latest'
@@ -358,7 +358,7 @@ Using action `output_path` you can access the generated SBOM and store it as an 
 - uses: actions/upload-artifact@v2
   with:
     name: gensbom-busybox-output-test
-    path: ${{ steps.genSBOM_json.outputs.OUTPUT_PATH }}
+    path: ${{ steps.gensbom_json.outputs.OUTPUT_PATH }}
 ``` 
 </details>
 
@@ -376,7 +376,7 @@ Using action `output_path` you can access the generated SBOM and store it as an 
 - uses: actions/upload-artifact@v2
   with:
     name: scribe-evidence
-    path: ${{ steps.genSBOM_json.outputs.OUTPUT_PATH }}
+    path: ${{ steps.gensbom_json.outputs.OUTPUT_PATH }}
 ``` 
 </details>
 
@@ -436,7 +436,7 @@ Note directory must be mapped to working dir for actions to access (containerize
     echo "test" > testdir/test.txt
 
 - name: gensbom attest dir
-  id: genSBOM_attest_dir
+  id: gensbom_attest_dir
   uses: scribe-security/actions/gensbom/bom@master
   with:
     type: dir
@@ -495,7 +495,7 @@ job_example:
 Verify targets against a signed attestation. \
 Note: `docker` in target `type` field (is not accessible because it requires docker daemon (containerized actions) \
 Default attestation config: `sigstore-config` - sigstore (Fulcio, Rekor).
-Gensbom will look for both a bom or slsa attestation to verify against
+gensbom will look for both a bom or slsa attestation to verify against
 
 ```YAML
 - name: gensbom verify
@@ -512,7 +512,7 @@ Gensbom will look for both a bom or slsa attestation to verify against
 Verify targets against a signed attestation. \
 Note: `docker` in target `type` field (is not accessible because it requires docker daemon (containerized actions) \
 Default attestation config: `sigstore-config` - sigstore (Fulcio, Rekor).
-Gensbom will look for both a bom or slsa attestation to verify against
+gensbom will look for both a bom or slsa attestation to verify against
 
 ```YAML
 - name: gensbom verify
@@ -543,7 +543,7 @@ Full job example of a image signing and verifying flow.
           fetch-depth: 0
 
       - name: gensbom attest
-        id: genSBOM_attest
+        id: gensbom_attest
         uses: scribe-security/actions/gensbom/bom@master
         with:
            target: 'busybox:latest'
@@ -552,7 +552,7 @@ Full job example of a image signing and verifying flow.
            force: true
 
       - name: gensbom verify
-        id: genSBOM_verify
+        id: gensbom_verify
         uses: scribe-security/actions/gensbom/verify@master
         with:
            target: 'busybox:latest'
@@ -561,7 +561,7 @@ Full job example of a image signing and verifying flow.
       - uses: actions/upload-artifact@v2
         with:
           name: gensbom-busybox-test
-          path: genSBOM_reports
+          path: gensbom_reports
 ``` 
 
 </details>
@@ -584,8 +584,8 @@ Full job example of a image signing and verifying flow.
         with:
           fetch-depth: 0
 
-      - name: gensbom attest
-        id: genSBOM_attest
+      - name: gensbom attest slsa
+        id: gensbom_attest
         uses: scribe-security/actions/gensbom/bom@master
         with:
            target: 'busybox:latest'
@@ -593,8 +593,8 @@ Full job example of a image signing and verifying flow.
            format: attest-slsa
            force: true
 
-      - name: gensbom verify
-        id: genSBOM_verify
+      - name: gensbom verify attest slsa
+        id: gensbom_verify
         uses: scribe-security/actions/gensbom/verify@master
         with:
            target: 'busybox:latest'
@@ -604,7 +604,7 @@ Full job example of a image signing and verifying flow.
       - uses: actions/upload-artifact@v2
         with:
           name: gensbom-busybox-test
-          path: genSBOM_reports
+          path: gensbom_reports
 ``` 
 
 </details>
@@ -628,7 +628,7 @@ Full job example of a directory signing and verifying flow.
           fetch-depth: 0
 
       - name: gensbom attest workdir
-        id: genSBOM_attest_dir
+        id: gensbom_attest_dir
         uses: scribe-security/actions/gensbom/bom@master
         with:
            type: dir
@@ -638,7 +638,7 @@ Full job example of a directory signing and verifying flow.
            force: true
 
       - name: gensbom verify workdir
-        id: genSBOM_verify_dir
+        id: gensbom_verify_dir
         uses: scribe-security/actions/gensbom/verify@master
         with:
            type: dir
@@ -649,7 +649,7 @@ Full job example of a directory signing and verifying flow.
         with:
           name: gensbom-workdir-reports
           path: |
-            genSBOM_reports      
+            gensbom_reports      
 ``` 
 
 </details>
