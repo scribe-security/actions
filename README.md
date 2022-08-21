@@ -316,7 +316,7 @@ Custom private registry, skip cache (using `Force`), output verbose (debug level
   uses: scribe-security/actions/gensbom/bom@master
   with:
     target: 'scribesecuriy.jfrog.io/scribe-docker-local/stub_remote:latest'
-    verbose: 3
+    verbose: 2
     force: true
 ```
 </details>
@@ -332,7 +332,7 @@ Data will be included in the signed payload when the output is an attestation.
   uses: scribe-security/actions/gensbom/bom@master
   with:
       target: 'busybox:latest'
-      verbose: 3
+      verbose: 2
       format: json
       force: true
       name: name_value
@@ -490,7 +490,7 @@ job_example:
 </details>
 
 <details>
-  <summary> Verify target  (BOM,SLSA) </summary>
+  <summary> Verify target (BOM) </summary>
 
 Verify targets against a signed attestation. \
 Note: `docker` in target `type` field (is not accessible because it requires docker daemon (containerized actions) \
@@ -507,7 +507,25 @@ Gensbom will look for both a bom or slsa attestation to verify against
 </details>
 
 <details>
-  <summary> Attest and verify image  </summary>
+  <summary> Verify target (SLSA) </summary>
+
+Verify targets against a signed attestation. \
+Note: `docker` in target `type` field (is not accessible because it requires docker daemon (containerized actions) \
+Default attestation config: `sigstore-config` - sigstore (Fulcio, Rekor).
+Gensbom will look for both a bom or slsa attestation to verify against
+
+```YAML
+- name: gensbom verify
+  uses: scribe-security/actions/gensbom/verify@master
+  with:
+    target: 'busybox:latest'
+    input-format: attest-slsa
+``` 
+
+</details>
+
+<details>
+  <summary> Attest and verify image (BOM) </summary>
 
 Full job example of a image signing and verifying flow.
 
@@ -529,7 +547,7 @@ Full job example of a image signing and verifying flow.
         uses: scribe-security/actions/gensbom/bom@master
         with:
            target: 'busybox:latest'
-           verbose: 3
+           verbose: 2
            format: attest
            force: true
 
@@ -538,7 +556,50 @@ Full job example of a image signing and verifying flow.
         uses: scribe-security/actions/gensbom/verify@master
         with:
            target: 'busybox:latest'
-           verbose: 3
+           verbose: 2
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: gensbom-busybox-test
+          path: genSBOM_reports
+``` 
+
+</details>
+
+<details>
+  <summary> Attest and verify image (SLSA) </summary>
+
+Full job example of a image signing and verifying flow.
+
+```YAML
+ gensbom-busybox-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: gensbom attest
+        id: genSBOM_attest
+        uses: scribe-security/actions/gensbom/bom@master
+        with:
+           target: 'busybox:latest'
+           verbose: 2
+           format: attest-slsa
+           force: true
+
+      - name: gensbom verify
+        id: genSBOM_verify
+        uses: scribe-security/actions/gensbom/verify@master
+        with:
+           target: 'busybox:latest'
+           input-format: attest-slsa
+           verbose: 2
 
       - uses: actions/upload-artifact@v2
         with:
@@ -572,7 +633,7 @@ Full job example of a directory signing and verifying flow.
         with:
            type: dir
            target: '/GitHub/workspace/'
-           verbose: 3
+           verbose: 2
            format: attest
            force: true
 
@@ -582,7 +643,7 @@ Full job example of a directory signing and verifying flow.
         with:
            type: dir
            target: '/GitHub/workspace/'
-           verbose: 3
+           verbose: 2
       
       - uses: actions/upload-artifact@v2
         with:
@@ -656,7 +717,7 @@ Download report for CI run and save the output to a local file.
       id: download_report
       uses: scribe-security/actions/valint/report@master
       with:
-          verbose: 3
+          verbose: 2
           scribe-enable: true
           scribe-client-id: ${{ inputs.client-id }}
           scribe-client-secret: ${{ inputs.client-secret }}

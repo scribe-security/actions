@@ -17,7 +17,7 @@ title: Verify
     default: 1
   config:
     description: 'Application config file'
-  inputformat:
+  input-format:
     description: 'Sbom input formatter, options=[attest-cyclonedx-json attest-slsa] (default "attest-cyclonedx-json")'
     default: attest-cyclonedx-json
   output-directory:
