@@ -35,7 +35,7 @@ runs:
           echo "Installing using install script" ${{ inputs.version }} ${{ inputs.tool }} 
           export SCRIBE_DEBUG=${DEBUG}
           export SCRIBE_INSTALL_DIR=/usr/local/bin
-          curl -sSfL https://raw.githubusercontent.com/scribe-security/misc/master/install.sh | sh
+          curl -sSfL https://raw.githubusercontent.com/scribe-security/misc/master/install.sh | sh -s -- -D
           if [ $? -eq 0 ] ; then
               echo "Installer success"
           else 
