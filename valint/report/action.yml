@@ -18,6 +18,8 @@ inputs:
   scribe-enable:
     description: 'Enable scribe client'
     default: false
+  product-key:
+    description: 'Custom/project product key'
   scribe-client-id:
     description: 'Scribe client id' 
   scribe-client-secret:
@@ -47,6 +49,7 @@ runs:
     - ${{ inputs.output-directory && '--output-directory=' }}${{ inputs.output-directory }}
     - ${{ inputs.scribe-enable && '--scribe.enable=' }}${{ inputs.scribe-enable }}
     - ${{ inputs.output-file && '--output-file=' }}${{ inputs.output-file }}
+    - ${{ inputs.product-key && '--product-key=' }}${{ inputs.product-key }}
     - ${{ inputs.scribe-client-id && '--scribe.client-id=' }}${{ inputs.scribe-client-id }}
     - ${{ inputs.scribe-client-secret && '--scribe.client-secret=' }}${{ inputs.scribe-client-secret }}
     - ${{ inputs.scribe-url && '--scribe.url=' }}${{ inputs.scribe-url }}
