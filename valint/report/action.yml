@@ -36,7 +36,10 @@ inputs:
     description: 'Select report sections'
   integrity:
     description: 'Select report integrity'
-
+  backoff:
+    description: 'Backoff duration'
+  timeout:  
+    description: 'Timeout duration'
 
 runs:
   using: docker
@@ -58,6 +61,8 @@ runs:
     - ${{ inputs.context-dir && '--context-dir=' }}${{ inputs.context-dir }}
     - ${{ inputs.section && '--section=' }}${{ inputs.section }}
     - ${{ inputs.integrity && '--integrity=' }}${{ inputs.integrity }}
+    - ${{ inputs.backoff && '--backoff=' }}${{ inputs.backoff }}
+    - ${{ inputs.timeout && '--timeout=' }}${{ inputs.timeout }}
 
 branding:
   icon: shield
