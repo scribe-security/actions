@@ -253,8 +253,8 @@ Valint downloading integrity report from scribe service
     with:
         verbose: 2
         scribe-enable: true
-        scribe-client-id: ${{ inputs.client-id }}
-        scribe-client-secret: ${{ inputs.client-secret }}
+        scribe-client-id: ${{ secrets.client-id }}
+        scribe-client-secret: ${{ secrets.client-secret }}
 ```
 </details>
 
@@ -270,8 +270,9 @@ Valint downloading integrity report from scribe service
     with:
         verbose: 2
         scribe-enable: true
-        scribe-client-id: ${{ inputs.client-id }}
-        scribe-client-secret: ${{ inputs.client-secret }}
+        product-key:  ${{ secrets.product-key }}
+        scribe-client-id: ${{ secrets.client-id }}
+        scribe-client-secret: ${{ secrets.client-secret }}
         section: packages
 ```
 </details>
@@ -702,8 +703,9 @@ Download integrity report.
       id: download_report
       uses: scribe-security/actions/valint/report@master
       with:
-          scribe-client-id: ${{ inputs.client-id }}
-          scribe-client-secret: ${{ inputs.client-secret }}
+          product-key:  ${{ secrets.product-key }}
+          scribe-client-id: ${{ secrets.client-id }}
+          scribe-client-secret: ${{ secrets.client-secret }}
 ``` 
 Default output will be set to `scribe/valint/` subdirectory (Use `output-directory` argument to overwrite location).
 </details>
@@ -721,8 +723,9 @@ Download report for CI run and save the output to a local file.
       with:
           verbose: 2
           scribe-enable: true
-          scribe-client-id: ${{ inputs.client-id }}
-          scribe-client-secret: ${{ inputs.client-secret }}
+          product-key:  ${{ secrets.product-key }}
+          scribe-client-id: ${{ secrets.client-id }}
+          scribe-client-secret: ${{ insecretsputs.client-secret }}
           output-file: "./result_report.json"
 ``` 
 </details>
