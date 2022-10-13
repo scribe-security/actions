@@ -47,6 +47,7 @@
   with:
       verbose: 2
       scribe-enable: true
-      scribe-client-id: ${{ inputs.client-id }}
-      scribe-client-secret: ${{ inputs.client-secret }}
+      product-key: ${{ secrets.product-key }}
+      scribe-client-id: ${{ secrets.client-id }}
+      scribe-client-secret: ${{ secrets.client-secret }}
 ```
