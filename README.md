@@ -136,6 +136,7 @@ jobs:
            target: 'mongo-express-scm'
            verbose: 2
            scribe-enable: true
+           product-key:  ${{ secrets.product-key }}
            scribe-client-id: ${{ secrets.client-id }}
            scribe-client-secret: ${{ secrets.client-secret }}
 
@@ -153,6 +154,7 @@ jobs:
            target: 'mongo-express:1.0.0-alpha.4'
            verbose: 2
            scribe-enable: true
+           product-key:  ${{ secrets.product-key }}
            scribe-client-id: ${{ secrets.client-id }}
            scribe-client-secret: ${{ secrets.client-secret }}
 
@@ -162,6 +164,7 @@ jobs:
         with:
            verbose: 2
            scribe-enable: true
+           product-key:  ${{ secrets.product-key }}
            scribe-client-id: ${{ secrets.client-id }}
            scribe-client-secret: ${{ secrets.client-secret }}
 
@@ -218,6 +221,7 @@ jobs:
            target: 'mongo-express:1.0.0-alpha.4'
            verbose: 2
            scribe-enable: true
+           product-key:  ${{ secrets.product-key }}
            scribe-client-id: ${{ secrets.client-id }}
            scribe-client-secret: ${{ secrets.client-secret }}
 
@@ -227,6 +231,7 @@ jobs:
         with:
            verbose: 2
            scribe-enable: true
+           product-key:  ${{ secrets.product-key }}
            scribe-client-id: ${{ secrets.client-id }}
            scribe-client-secret: ${{ secrets.client-secret }}
 
@@ -253,6 +258,7 @@ Valint downloading integrity report from scribe service
     with:
         verbose: 2
         scribe-enable: true
+        product-key:  ${{ secrets.product-key }}
         scribe-client-id: ${{ secrets.client-id }}
         scribe-client-secret: ${{ secrets.client-secret }}
 ```
