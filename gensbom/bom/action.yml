@@ -31,8 +31,6 @@ inputs:
     description: 'Custom env'
   filter-regex:
     description: 'Filter out files by regex'
-  filter-purl:
-    description: 'Filter out purls by regex'
   attach-regex:
     description: 'Attach files content by regex'
   force:
@@ -76,7 +74,6 @@ runs:
     - ${{ inputs.label && '--label=' }}${{ inputs.label }}
     - ${{ inputs.env && '--env=' }}${{ inputs.env }}
     - ${{ inputs.filter-regex && '--filter-regex=' }}${{ inputs.filter-regex }}
-    - ${{ inputs.filter-purl && '--filter-purl=' }}${{ inputs.filter-purl }}
     - ${{ inputs.attach-regex && '--attach-regex=' }}${{ inputs.attach-regex }}
     - --context-type=github
     - ${{ inputs.output-directory && '--output-directory=' }}${{ inputs.output-directory }}
