@@ -1,5 +1,0 @@
-output-directory: ./scribe/gensbom
-attest:
-  default: sigstore-github
-context:
-  context-type: github

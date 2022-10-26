@@ -1,0 +1,12 @@
+[submodule "gensbom/bom"]
+	path = gensbom/bom
+	url = git@github.com:scribe-security/action-bom.git
+[submodule "gensbom/verify"]
+	path = gensbom/verify
+	url = git@github.com:scribe-security/action-verify.git
+[submodule "valint/report"]
+	path = valint/report
+	url = git@github.com:scribe-security/action-report.git
+[submodule "installer"]
+	path = installer
+	url = git@github.com:scribe-security/action-installer.git
