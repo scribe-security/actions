@@ -62,7 +62,7 @@ runs:
         -v /proc:/proc -v /etc/passwd:/etc/passwd -v ${{ inputs.directory }}:/work -w /work
         scribesecuriy.jfrog.io/scribe-docker-public-local/fs-tracker:latest
         --verbose=${{ inputs.verbose }}
-        ${{ inputs.profile == 'true' && '--profile' }}
+        ${{ fromJSON('{ "true": "--profile" }')[inputs.profile]  }}
         ${{ inputs.trace == 'true' && '--trace' }}
         ${{ inputs.rusage == 'true' && '--rusage' }}
         ${{ inputs.cpu-usage == 'true' && '--cpu-usage' }}
