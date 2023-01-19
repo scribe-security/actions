@@ -22,7 +22,7 @@ inputs:
             "events": ["input","output","rename","exec","preload","load"]
           }
         }
-      }'
+      }
   processes:
     description: "Limit to specific processes by names or PIDs"
     default: "Runner.Worker provisioner dockerd containerd"
