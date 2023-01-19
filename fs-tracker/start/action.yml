@@ -62,10 +62,10 @@ runs:
         -v /proc:/proc -v /etc/passwd:/etc/passwd -v ${{ inputs.directory }}:/work -w /work
         scribesecuriy.jfrog.io/scribe-docker-public-local/fs-tracker:latest
         --verbose=${{ inputs.verbose }}
-        ${{ inputs.profile && "--profile" }}
-        ${{ inputs.trace && "--trace" }}
-        ${{ inputs.rusage && "--rusage" }}
-        ${{ inputs.cpu-usage && "--cpu-usage" }}
+        ${{ inputs.profile && '--profile' }}
+        ${{ inputs.trace && '--trace' }}
+        ${{ inputs.rusage && '--rusage' }}
+        ${{ inputs.cpu-usage && '--cpu-usage' }}
         ${{ inputs.processes }}
 
     - name: Wait for fs-tracker initialisation
