@@ -1,0 +1,71 @@
+name: Start fs-tracker
+description: "Track processes and file-system events using ptrace"
+author: Shahar Paz
+
+inputs:
+  verbose:
+    description: "Increase verbosity (-v = info, -vv = debug)"
+    default: 0
+  directory:
+    description: "Working directory"
+    default: "/tmp/fs-tracker"
+  format:
+    description: 'Output format: "json" or "jsonl" (JSON-Lines)'
+  rules:
+    description: "Rules for reporting events"
+    default: rules.json
+  processes:
+    description: "Limit to specific processes by names or PIDs"
+    default: "Runner.Worker provisioner dockerd containerd"
+  profile:
+    description: "Enable profiling (SLOW)"
+    default: false
+  trace:
+    description: "Enable tracing (SLOW)"
+    default: false
+  rusage:
+    description: "Report resource usage of each process (SLOW)"
+    default: false
+  cpu-usage:
+    description: "Report CPU usage per core"
+    default: false
+
+runs:
+  using: composite
+  steps:
+
+    - name: Create fs-tracker work dir
+      id: fs-tracker-dir
+      run: mkdir -p '${{ inputs.directory }}'
+    
+    - name: Create fs-tracker rule file
+      id: fs-tracker-rules
+      run: echo '${{ inputs.rules }}' > '${{ inputs.directory }}/rules.json'
+    
+    - name: Start fs-tracker container
+      id: fs-tracker-start
+      run: >
+        docker run -d --name "fs-tracker"
+        --privileged --pid=host --userns=host --cgroupns=host
+        -v /proc:/proc -v /etc/passwd:/etc/passwd -v ${{ inputs.directory }}:/work -w /work
+        scribesecuriy.jfrog.io/scribe-docker-public-local/fs-tracker:latest
+        --verbose=${{ inputs.verbose }}
+        ${{ inputs.profile && "--profile" }}
+        ${{ inputs.trace && "--trace" }}
+        ${{ inputs.rusage && "--rusage" }}
+        ${{ inputs.cpu-usage && "--cpu-usage" }}
+        ${{ inputs.processes }}
+
+    - name: Wait for fs-tracker initialisation
+      id: fs-tracker-wait-init
+      run: |
+        while [ $(docker container inspect "fs-tracker" --format {{.State.Status}}) == "running" ]
+        do
+          if docker logs "fs-tracker" 2>/dev/null | grep '^Ready!' >/dev/null
+          then
+            echo Ready!
+            break
+          fi
+          sleep 1
+        done
+        docker logs "fs-tracker"
