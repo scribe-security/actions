@@ -45,14 +45,17 @@ runs:
 
     - name: Create fs-tracker work dir
       id: fs-tracker-dir
+      shell: bash
       run: mkdir -p '${{ inputs.directory }}'
     
     - name: Create fs-tracker rule file
       id: fs-tracker-rules
+      shell: bash
       run: echo '${{ inputs.rules }}' > '${{ inputs.directory }}/rules.json'
     
     - name: Start fs-tracker container
       id: fs-tracker-start
+      shell: bash
       run: >
         docker run -d --name "fs-tracker"
         --privileged --pid=host --userns=host --cgroupns=host
@@ -67,6 +70,7 @@ runs:
 
     - name: Wait for fs-tracker initialisation
       id: fs-tracker-wait-init
+      shell: bash
       run: |
         while [ $(docker container inspect "fs-tracker" --format {{.State.Status}}) == "running" ]
         do
