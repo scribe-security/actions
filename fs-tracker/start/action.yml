@@ -12,7 +12,7 @@ inputs:
   format:
     description: 'Output format: "json" or "jsonl" (JSON-Lines)'
   rules:
-    description: "Rules for reporting events"
+    description: "JSON rules for filtering events"
     default: |
       {
         "Sample Rule":
