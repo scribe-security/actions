@@ -13,7 +13,16 @@ inputs:
     description: 'Output format: "json" or "jsonl" (JSON-Lines)'
   rules:
     description: "Rules for reporting events"
-    default: rules.json
+    default: |
+      {
+        "Sample Rule":
+        {
+          "filters":
+          {
+            "events": ["input","output","rename","exec","preload","load"]
+          }
+        }
+      }'
   processes:
     description: "Limit to specific processes by names or PIDs"
     default: "Runner.Worker provisioner dockerd containerd"
