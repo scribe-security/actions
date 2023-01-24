@@ -1,0 +1,40 @@
+name: Stop fs-tracker
+description: Terminate fs-tracker and publish its reports
+author: Shahar Paz
+
+inputs:
+  directory:
+    description: Working directory
+    default: /tmp/fs-tracker
+  artifact:
+    description: Artifact name for exporting fs-tracker's reports
+    default: fs-tracker-report
+
+runs:
+  using: composite
+  steps:
+
+    - name: Stop fs-tracker
+      id: fs-tracker-stop
+      if: always()
+      shell: bash
+      run: |
+        docker stop "fs-tracker"
+        docker logs "fs-tracker" | tee '${{ inputs.directory }}'/fs-tracker.log
+        EXIT_CODE=$(docker wait "fs-tracker")
+        docker rm --force "fs-tracker"
+        if [ ${EXIT_CODE} != 143 ]; then exit ${EXIT_CODE}; fi
+
+    - name: Publish tracking reports
+      id: fs-tracker-publish
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ inputs.artifact }}
+        path: |
+          ${{ inputs.directory }}/fs-tracker.log
+          ${{ inputs.directory }}/events.json
+          ${{ inputs.directory }}/processes.json
+          ${{ inputs.directory }}/fs-tracker.prof
+          ${{ inputs.directory }}/fs-tracker.trace
+
