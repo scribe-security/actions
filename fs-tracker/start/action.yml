@@ -1,18 +1,18 @@
 name: Start fs-tracker
-description: "Track processes and file-system events using ptrace"
+description: Track processes and file-system events using ptrace
 author: Shahar Paz
 
 inputs:
   verbose:
-    description: "Increase verbosity (-v = info, -vv = debug)"
+    description: Increase verbosity (-v = info, -vv = debug)
     default: 0
   directory:
-    description: "Working directory"
-    default: "/tmp/fs-tracker"
+    description: Working directory
+    default: /tmp/fs-tracker
   format:
     description: 'Output format: "json" or "jsonl" (JSON-Lines)'
   rules:
-    description: "JSON rules for filtering events"
+    description: JSON rules for filtering events
     default: |
       {
         "Sample Rule":
@@ -24,19 +24,19 @@ inputs:
         }
       }
   processes:
-    description: "Limit to specific processes by names or PIDs"
-    default: "Runner.Worker provisioner dockerd containerd"
+    description: Limit to specific processes by names or PIDs
+    default: Runner.Worker provisioner dockerd containerd
   profile:
-    description: "Enable profiling (SLOW)"
+    description: Enable profiling (SLOW)
     default: false
   trace:
-    description: "Enable tracing (SLOW)"
+    description: Enable tracing (SLOW)
     default: false
   rusage:
-    description: "Report resource usage of each process (SLOW)"
+    description: Report resource usage of each process (SLOW)
     default: false
   cpu-usage:
-    description: "Report CPU usage per core"
+    description: Report CPU usage per core
     default: false
 
 runs:
@@ -59,7 +59,7 @@ runs:
       run: >
         docker run -d --name "fs-tracker"
         --privileged --pid=host --userns=host --cgroupns=host
-        -v /proc:/proc -v /etc/passwd:/etc/passwd -v ${{ inputs.directory }}:/work -w /work
+        -v /proc:/proc -v /etc/passwd:/etc/passwd -v '${{ inputs.directory }}':/work -w /work
         scribesecuriy.jfrog.io/scribe-docker-public-local/fs-tracker:latest
         --verbose=${{ inputs.verbose }}
         ${{ fromJSON('{"true": "--profile"}')[inputs.profile] }}
