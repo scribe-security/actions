@@ -38,4 +38,4 @@ Action is customizable by input arguments:
     Name for the report artifact to be uploaded.
 
 ## Example
-See example usage in https://github.com/scribe-security/fs-in-toto/blob/main/.github/workflows/npm_w_docker_build.yml (and other workflow files in the same directory).
+See an example [workflow file](https://github.com/scribe-security/SolarWinds-demo/blob/main/.github/workflows/CleanBuild.yml).
